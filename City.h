@@ -71,6 +71,8 @@ private:
 
 	void addState(int time, int day, int id, boolean traffic);
 	
+	updateTraffic(boolean traffic, int time);
+	
 	string max_TS();
 
 protected:
@@ -90,7 +92,7 @@ private:
 	//table of the maximum values
 	unsigned int maximumValues;
 	//date and state of the max traffic
-	unsigned int trafficTie;
+	unsigned int trafficTime;
 	unsigned int trafficDelay;
 
 	//RealTime state

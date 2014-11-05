@@ -102,9 +102,32 @@ City::~City ( )
 			cur=cur.next;
 		}
 		
-		updateTraffic(traffic, time);
+		trafficUpdate(traffic, time);
 		
-		updateSensor(id, time, day, sensorState);
+		cur.SensorUpdate(time, sensorState);
+		
+	}
+	
+	void City::updateTraffic(boolean traffic, int time)
+	{
+		realTimeSensorState=0;
+		sensor cur = listSensors;
+		while(cur.next!=null)
+		{
+			if(traffic)
+			{
+				realTimeSensorState++;
+			}
+		}
+		
+		if(realTimeSensorState>maximumValues)
+		{
+			maximumValues=realTimeSensorState;
+			trafficTime=time;
+		}
+	}
+				
+		
 		
 		
 		
