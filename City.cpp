@@ -12,6 +12,7 @@
 //-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
+#include <string>
 
 //------------------------------------------------------ Include personnel
 #include "City.h"
@@ -80,3 +81,57 @@ City::~City ( )
 //----------------------------------------------------- Méthodes protégées
 
 //------------------------------------------------------- Méthodes privées
+// type City::Méthode ( liste de paramètres )
+// Algorithme :
+//
+//{
+//} //----- Fin de Méthode
+
+	void City::addState(int time, int day, int id, boolean traffic, int sensorState)
+	{
+		sensor cur = listSensors;
+		while(cur.next!=null or cur.id!=id)
+		{
+			cur=cur.next;
+		}
+		//case the sensor doesn't already exist
+		if(cur.next==null)
+		{			
+			sensor * newSensor = new sensor(id);
+			cur.next=newSensor;
+			cur=cur.next;
+		}
+		
+		trafficUpdate(traffic, time);
+		
+		cur.SensorUpdate(time, sensorState);
+		
+	}
+	
+	void City::updateTraffic(boolean traffic, int time)
+	{
+		realTimeSensorState=0;
+		sensor cur = listSensors;
+		while(cur.next!=null)
+		{
+			if(traffic)
+			{
+				realTimeSensorState++;
+			}
+		}
+		
+		if(realTimeSensorState>maximumValues)
+		{
+			maximumValues=realTimeSensorState;
+			trafficTime=time;
+		}
+	}
+				
+		
+		
+		
+		
+		
+		
+			
+		

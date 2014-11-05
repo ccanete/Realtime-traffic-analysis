@@ -69,7 +69,11 @@ protected:
 private:
 //------------------------------------------------------- Méthodes privées
 
-AddState
+	void addState(int time, int day, int id, boolean traffic);
+	
+	updateTraffic(boolean traffic, int time);
+	
+	string max_TS();
 
 protected:
 //----------------------------------------------------- Attributs protégés
@@ -82,11 +86,13 @@ private:
 
 	//Array list of sensors
 	sensor listSensors ();
+	//Number of sensors
+	int howManySensors;
 
 	//table of the maximum values
-	unsigned int maximumValues [3];
+	unsigned int maximumValues;
 	//date and state of the max traffic
-	unsigned int trafficTie;
+	unsigned int trafficTime;
 	unsigned int trafficDelay;
 
 	//RealTime state
