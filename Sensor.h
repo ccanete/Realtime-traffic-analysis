@@ -28,14 +28,16 @@ class Sensor
 public:
 
 //----------------------------------------------------- M�thodes publiques
-String StatsIdSensor();
+int [] StatsIdSensor();
     // Mode d'emploi :
     //
     // Contrat :return the sensors stats in a string
     //
-//------------------------------------------------------Methode publiques
+
 void SensorUpdate(int time,int state);
 	//Mode d'emploi : update tab traffic[4] and lastTime
+Sensor* GetNext();
+	// send next sensor
 
 //------------------------------------------------- Surcharge d'op�rateurs
   //  ${file_base} & operator = ( const ${file_base} & un${file_base} );
