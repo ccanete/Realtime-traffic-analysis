@@ -1,4 +1,5 @@
 
+
 /*************************************************************************
                            ${file_base}  -  description
                              -------------------
@@ -29,38 +30,38 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- M�thodes publiques
- int[] Sensor::StatsIdSensor()
+ int* Sensor::StatsIdSensor()
 // Algorithme :
 {
-	// calculing percentage in a tab
-	int tab[4];
-	tab[0]= this.traffic[0]/(this.traffic[0]+this.traffic[1]+this.traffic[2]+this.traffic[3]);
-	tab[1]= this.traffic[1]/(this.traffic[0]+this.traffic[1]+this.traffic[2]+this.traffic[3]);
-	tab[2]= this.traffic[2]/(this.traffic[0]+this.traffic[1]+this.traffic[2]+this.traffic[3]);
-	tab[3]= this.traffic[3]/(this.traffic[0]+this.traffic[1]+this.traffic[2]+this.traffic[3]);
-	return tab;
+    // calculing percentage in a tab
+    int tab[4];
+    tab[0]= this->traffic[0]/(this->traffic[0]+this->traffic[1]+this->traffic[2]+this->traffic[3]);
+    tab[1]= this->traffic[1]/(this->traffic[0]+this->traffic[1]+this->traffic[2]+this->traffic[3]);
+    tab[2]= this->traffic[2]/(this->traffic[0]+this->traffic[1]+this->traffic[2]+this->traffic[3]);
+    tab[3]= this->traffic[3]/(this->traffic[0]+this->traffic[1]+this->traffic[2]+this->traffic[3]);
+    return tab;
 } //----- Fin de M�thode
 
 Sensor* Sensor::GetNext()
 {
-	
-	return this.nextSensor;
-	
+
+    return this->nextSensor;
+
 }
 
  void Sensor::SensorUpdate(int currentTime,int state)
  //
  {
-	 // updating traffic[4]
-	if (currentTime - this.lastTime<300){
-		this.traffic[lastState]=+currentTime - this.lastTime; 
-		}
-	else { 
-		this.traffic[lastState]=+300;
-	}
-	//updating lastTime and lastState
-	this.lastState=currentTime;
-	this.lastState=state;
+     // updating traffic[4]
+    if (currentTime - this->lastTime<300){
+        this->traffic[lastState]=+currentTime - this->lastTime;
+        }
+    else {
+        this->traffic[lastState]=+300;
+    }
+    //updating lastTime and lastState
+    this->lastState=currentTime;
+    this->lastState=state;
 
  }
 
@@ -73,7 +74,7 @@ Sensor* Sensor::GetNext()
 
 
 //-------------------------------------------- Constructeurs - destructeur
-//${file_base}::${file_base} ( const ${file_base} & un${file_base} )
+Sensor::Sensor ( const Sensor & unSensor )
 // Algorithme :
 //
 {
@@ -90,14 +91,14 @@ Sensor::Sensor(int Id)
 #ifdef MAP
     cout << "Appel au constructeur de <${file_base}>" << endl;
 #endif
-    this->idSensor=id;
-    this->nextSensor=null;
+    this->idSensor=Id;
+    this->nextSensor=NULL;
 
 
 } //----- Fin de ${file_base}
 
 
-$//{file_base}::~${file_base} ( )
+Sensor::~Sensor ( )
 // Algorithme :
 //
 {
