@@ -6,8 +6,8 @@
 *************************************************************************/
 
 //---------- Interface de la classe <${file_base}> (fichier ${file_name}) ------
-#if ! defined ( XXX_H )
-#define XXX_H
+#if ! defined ( Sensor_H )
+#define Sensor_H
 
 //--------------------------------------------------- Interfaces utilis�es
 
@@ -16,7 +16,7 @@
 //------------------------------------------------------------------ Types 
 
 //------------------------------------------------------------------------ 
-// R�le de la classe <${file_base}>
+// Role de la classe <${file_base}>
 //
 //
 //------------------------------------------------------------------------ 
@@ -38,7 +38,7 @@ void SensorUpdate(int time,int state);
 	//Mode d'emploi : update tab traffic[4] and lastTime
 
 //------------------------------------------------- Surcharge d'op�rateurs
-    ${file_base} & operator = ( const ${file_base} & un${file_base} );
+  //  ${file_base} & operator = ( const ${file_base} & un${file_base} );
     // Mode d'emploi :
     //
     // Contrat :
@@ -46,19 +46,19 @@ void SensorUpdate(int time,int state);
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    ${file_base} ( const ${file_base} & un${file_base} );
+    Sensor( const Sensor  & unSensor );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
     //
 
-    Sensor ( int Id );
+    Sensor(int Id);
     // Mode d'emploi :
     //
     // Contrat :
     //
 
-    virtual ~${file_base} ( );
+    virtual ~Sensor();
     // Mode d'emploi :
     //
     // Contrat :
@@ -77,8 +77,8 @@ protected:
 
 private:
 //------------------------------------------------------- Attributs priv�s
-unsigned int last time;//date of the last add(seconde)
-unsigned int[4] traffic;// time passed in each state
+unsigned int lastTime;//date of the last add(seconde)
+unsigned int traffic [4];// time passed in each state
 int idSensor;
 Sensor*  nextSensor;
 int lastState;
@@ -92,4 +92,4 @@ int lastState;
 
 //----------------------------------------- Types d�pendants de <${file_base}>
 
-#endif // XXX_H
+#endif // Sensor_H
