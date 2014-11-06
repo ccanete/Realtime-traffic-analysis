@@ -1,0 +1,44 @@
+ 
+IN :
+ADD 1 2014 9 6 23 58 0 7 N
+ADD 2 2014 9 6 23 59 0 7 V
+ADD 2 2014 9 7 0 1 0 1 V
+ADD 1 2014 9 7 0 2 0 1 V
+STATS_D7 1
+STATS_D7 2
+STATS_D7 3
+STATS_D7 4
+STATS_D7 5
+STATS_D7 6
+STATS_D7 7
+
+OUT :
+V 50%
+J 0%
+R 0%
+N 50%
+V 0%
+J 0%
+R 0%
+N 0%
+V 0%
+J 0%
+R 0%
+N 0%
+V 0%
+J 0%
+R 0%
+N 0%
+V 0%
+J 0%
+R 0%
+N 0%
+V 0%
+J 0%
+R 0%
+N 0%
+V 33%
+J 0%
+R 0%
+N 66%
+
