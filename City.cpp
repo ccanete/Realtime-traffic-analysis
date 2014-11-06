@@ -1,15 +1,16 @@
+
 /*************************************************************************
                            City  -  description
                              -------------------
-    début                : ${date}
+    dÃ©but                : ${date}
     copyright            : (C) ${year} par ${user}
 *************************************************************************/
 
-//---------- Réalisation de la classe <City> (fichier City.cpp) --
+//---------- RÃ©alisation de la classe <City> (fichier City.cpp) --
 
 //---------------------------------------------------------------- INCLUDE
 
-//-------------------------------------------------------- Include système
+//-------------------------------------------------------- Include systÃ¨me
 using namespace std;
 #include <iostream>
 #include <string>
@@ -17,32 +18,32 @@ using namespace std;
 //------------------------------------------------------ Include personnel
 #include "City.h"
 #include "Sensor.h"
-#include "Main.h"
+
 
 //------------------------------------------------------------- Constantes
 
 //---------------------------------------------------- Variables de classe
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- Méthodes publiques
-// type City::Méthode ( liste de paramètres )
+//----------------------------------------------------- MÃ©thodes publiques
+// type City::MÃ©thode ( liste de paramÃ¨tres )
 // Algorithme :
 //
 //{
-//} //----- Fin de Méthode
+//} //----- Fin de MÃ©thode
 
 
-//------------------------------------------------- Surcharge d'opérateurs
-City & City::operator = ( const City & unCity )
+//------------------------------------------------- Surcharge d'opÃ©rateurs
+//City & City::operator = ( const City & unCity )
 // Algorithme :
 //
-{
-} //----- Fin de operator =
+//{
+//} //----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -78,60 +79,59 @@ City::~City ( )
 
 //------------------------------------------------------------------ PRIVE
 
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
-//------------------------------------------------------- Méthodes privées
-// type City::Méthode ( liste de paramètres )
+//------------------------------------------------------- MÃ©thodes privÃ©es
+// type City::MÃ©thode ( liste de paramÃ¨tres )
 // Algorithme :
 //
 //{
-//} //----- Fin de Méthode
+//} //----- Fin de MÃ©thode
 
-	void City::addState(int time, int day, int id, boolean traffic, int sensorState)
-	{
-		sensor cur = listSensors;
-		while(cur.next!=null or cur.id!=id)
-		{
-			cur=cur.next;
-		}
-		//case the sensor doesn't already exist
-		if(cur.next==null)
-		{			
-			sensor * newSensor = new sensor(id);
-			cur.next=newSensor;
-			cur=cur.next;
-		}
-		
-		trafficUpdate(traffic, time);
-		
-		cur.SensorUpdate(time, sensorState);
-		
-	}
-	
-	void City::updateTraffic(boolean traffic, int time)
-	{
-		realTimeSensorState=0;
-		sensor cur = listSensors;
-		while(cur.next!=null)
-		{
-			if(traffic)
-			{
-				realTimeSensorState++;
-			}
-		}
-		
-		if(realTimeSensorState>maximumValues)
-		{
-			maximumValues=realTimeSensorState;
-			trafficTime=time;
-		}
-	}
-				
-		
-		
-		
-		
-		
-		
-			
-		
+    void City::addState(int time, int day, int id, int traffic, int sensorState)
+    {
+        Sensor* cur = this->listSensors;
+        while(cur->GetNext()!=NULL or cur->GetId()!=id)
+        {
+            cur=cur->GetNext();
+        }
+        //case the sensor doesn't already exist
+        if(cur->GetNext()==NULL)
+        {
+            Sensor * newSensor = new Sensor(id);
+            cur->Add(*newSensor);
+            cur=cur->GetNext();
+        }
+
+        this->updateTraffic(traffic, time);
+
+        cur->SensorUpdate(time, sensorState);
+
+    }
+
+    void City::updateTraffic(int traffic, int time)
+    {
+        realTimeSensorState=0;
+        Sensor* cur = listSensors;
+        while(cur->GetNext()!=NULL)
+        {
+            if(traffic)
+            {
+                realTimeSensorState++;
+            }
+        }
+
+        if(realTimeSensorState>maximumValues)
+        {
+            maximumValues=realTimeSensorState;
+            trafficTime=time;
+        }
+    }
+
+
+
+
+
+
+
+

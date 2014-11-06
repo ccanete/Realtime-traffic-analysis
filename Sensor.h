@@ -36,8 +36,9 @@ int*  StatsIdSensor();
 
 void SensorUpdate(int time,int state);
     //Mode d'emploi : update tab traffic[4] and lastTime
-Sensor* GetNext();
-    // send next sensor
+Sensor* GetNext();// send next sensor
+int GetId();// send the id of a sensor
+void Add(Sensor& theOneToADD);// to add a sensor if there is no next
 
 //------------------------------------------------- Surcharge d'op�rateurs
   //  ${file_base} & operator = ( const ${file_base} & un${file_base} );

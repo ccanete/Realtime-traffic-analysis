@@ -1,7 +1,7 @@
 /*************************************************************************
                            City  -  description
                              -------------------
-    début                : ${date}
+    dÃ©but                : ${date}
     copyright            : (C) ${year} par ${user}
 *************************************************************************/
 
@@ -9,32 +9,32 @@
 #if ! defined ( XXX_H )
 #define XXX_H
 
-//--------------------------------------------------- Interfaces utilisées
+//--------------------------------------------------- Interfaces utilisÃ©es
+#include "Sensor.h"
+//------------------------------------------------------------- Constantes
 
-//------------------------------------------------------------- Constantes 
+//------------------------------------------------------------------ Types
 
-//------------------------------------------------------------------ Types 
-
-//------------------------------------------------------------------------ 
-// Rôle de la classe <City>
+//------------------------------------------------------------------------
+// RÃ´le de la classe <City>
 //
 //
-//------------------------------------------------------------------------ 
+//------------------------------------------------------------------------
 
-class City : public Ancetre
+class City
 {
 //----------------------------------------------------------------- PUBLIC
 
 public:
-//----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste de paramètres );
+//----------------------------------------------------- MÃ©thodes publiques
+    // type MÃ©thode ( liste de paramÃ¨tres );
     // Mode d'emploi :
     //
     // Contrat :
     //
 
 
-//------------------------------------------------- Surcharge d'opérateurs
+//------------------------------------------------- Surcharge d'opÃ©rateurs
     City & operator = ( const City & unCity );
     // Mode d'emploi :
     //
@@ -61,54 +61,54 @@ public:
     // Contrat :
     //
 
-//------------------------------------------------------------------ PRIVE 
+//------------------------------------------------------------------ PRIVE
 
 protected:
-//----------------------------------------------------- Méthodes protégées
+//----------------------------------------------------- MÃ©thodes protÃ©gÃ©es
 
 private:
-//------------------------------------------------------- Méthodes privées
+//------------------------------------------------------- MÃ©thodes privÃ©es
 
-	void addState(int time, int day, int id, boolean traffic);
-	
-	updateTraffic(boolean traffic, int time);
-	
-	string max_TS();
+    void addState(int time, int day, int id, int traffic,int sensorState);
+
+    void updateTraffic(int traffic, int time);
+
+    string max_TS();
 
 protected:
-//----------------------------------------------------- Attributs protégés
+//----------------------------------------------------- Attributs protÃ©gÃ©s
 
 private:
-//------------------------------------------------------- Attributs privés
+//------------------------------------------------------- Attributs privÃ©s
 
-	//sensors states classified by days and hours
-	unsigned int sensorsState [7][24][4];
+    //sensors states classified by days and hours
+    unsigned int sensorsState [7][24][4];
 
-	//Array list of sensors
-	sensor listSensors ();
-	//Number of sensors
-	int howManySensors;
+    //Array list of sensors
+    Sensor* listSensors;
+    //Number of sensors
+    int howManySensors;
 
-	//table of the maximum values
-	unsigned int maximumValues;
-	//date and state of the max traffic
-	unsigned int trafficTime;
-	unsigned int trafficDelay;
+    //table of the maximum values
+    unsigned int maximumValues;
+    //date and state of the max traffic
+    unsigned int trafficTime;
+    unsigned int trafficDelay;
 
-	//RealTime state
-	unsigned int realTimeSensorState;
-	//Time of the last state inserted
-	unsigned int timeLastInsert;
+    //RealTime state
+    unsigned int realTimeSensorState;
+    //Time of the last state inserted
+    unsigned int timeLastInsert;
 
 
 //---------------------------------------------------------- Classes amies
 
-//-------------------------------------------------------- Classes privées
+//-------------------------------------------------------- Classes privÃ©es
 
-//----------------------------------------------------------- Types privés
+//----------------------------------------------------------- Types privÃ©s
 
 };
 
-//----------------------------------------- Types dépendants de <City>
+//----------------------------------------- Types dÃ©pendants de <City>
 
 #endif // XXX_H

@@ -1,5 +1,6 @@
 
 
+
 /*************************************************************************
                            ${file_base}  -  description
                              -------------------
@@ -14,7 +15,7 @@
 //-------------------------------------------------------- Include syst�me
 using namespace std;
 #include <iostream>
-#include <string>
+
 
 //------------------------------------------------------ Include personnel
 #include "Sensor.h"
@@ -30,7 +31,21 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- M�thodes publiques
- int* Sensor::StatsIdSensor()
+
+int Sensor::GetId(){
+    return this->idSensor;
+}
+
+void Sensor::Add(Sensor& theOneToADD){
+    if (this->nextSensor==NULL){
+        *nextSensor=theOneToADD;
+    }
+}
+
+
+
+
+int* Sensor::StatsIdSensor()
 // Algorithme :
 {
     // calculing percentage in a tab
@@ -113,3 +128,4 @@ Sensor::~Sensor ( )
 //----------------------------------------------------- M�thodes prot�g�es
 
 //------------------------------------------------------- M�thodes priv�es
+

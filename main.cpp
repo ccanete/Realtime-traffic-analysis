@@ -7,7 +7,7 @@ using namespace std;
 int main(void)
 {
     string command;
-    string data;// to stock statu and date	
+
    /* placer ici la déclaration de votre liste ainsi que
     * son initialisation */
 
