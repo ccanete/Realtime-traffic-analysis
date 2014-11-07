@@ -1,0 +1,3 @@
+makefile a completer
+faire attention a la methode qui renvoit un tableau
+il faut faire un substring pour le main et ne pas recuperer les donnees dans command et uniquement les donnees dans data
