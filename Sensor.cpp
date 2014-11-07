@@ -36,9 +36,9 @@ int Sensor::GetId(){
     return this->idSensor;
 }
 
-void Sensor::Add(Sensor& theOneToADD){
+void Sensor::Add(Sensor& theOneToAdd){
     if (this->nextSensor==NULL){
-        *nextSensor=theOneToADD;
+        *nextSensor=theOneToAdd;
     }
 }
 
@@ -49,7 +49,7 @@ int* Sensor::StatsIdSensor()
 // Algorithme :
 {
     // calculing percentage in a tab
-    int tab[4];
+    int tab[4];//!!!! a changer car on ne peut renvoyer un tab qui se supprime a la fin de la methode
     tab[0]= this->traffic[0]/(this->traffic[0]+this->traffic[1]+this->traffic[2]+this->traffic[3]);
     tab[1]= this->traffic[1]/(this->traffic[0]+this->traffic[1]+this->traffic[2]+this->traffic[3]);
     tab[2]= this->traffic[2]/(this->traffic[0]+this->traffic[1]+this->traffic[2]+this->traffic[3]);
