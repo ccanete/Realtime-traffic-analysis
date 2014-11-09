@@ -24,27 +24,24 @@ B: options incohérentes
 5: typage des nombres
 //La conversion de l’option en type nombre est problématique.
 
-6: Nombres négatifs
-// la commande comporte des nombres négatifs.
-
-7: option non valide
+6: option non valide
 // au moins une option de la commande n’est pas reconnue.
 
 C: incohérence de temps
 
 // l’utilisateur entre des données ne respectant pas les intervalles standard.
 
-8: Année, mois, jour incohérents
+7: Année, mois, jour incohérents
 // l’année n’est pas comprise dans l’intervalle  {2000-2100}.
 // Lemois n’est pas compris dans l’intervalle {1-12}.
 // le jour n’est pas compris dans les intervalles {1-28} ou {1-29} ou {1-30} ou {1-31}
 //selon le mois.
 
-9: d7 incohérent.
+8: d7 incohérent.
 //Loption d7 ne se trouve pas dans l’intervalle {1-7};
 
-10: horaire incohérent.
+9: horaire incohérent.
 // l’option heure ne se trouve pas dans l’intervalle {0-23}.
-// L’option minutes appartient pas à l’intervalle {1-59}.
-// l’option seconde n’appartient pas à l’intervalle {1-59}.
+// L’option minutes appartient pas à l’intervalle {0-59}.
+// l’option seconde n’appartient pas à l’intervalle {0-59}.
 
