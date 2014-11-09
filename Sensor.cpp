@@ -33,11 +33,11 @@ using namespace std;
 //----------------------------------------------------- M�thodes publiques
 
 int Sensor::GetId(){
-    return this->idSensor;
+    return   idSensor;
 }
 
 void Sensor::Add(Sensor& theOneToAdd){
-    if (this->nextSensor==NULL){
+    if (  nextSensor==NULL){
         *nextSensor=theOneToAdd;
     }
 }
@@ -50,17 +50,17 @@ int* Sensor::StatsIdSensor()
 {
     // calculing percentage in a tab
     int tab[4];//!!!! a changer car on ne peut renvoyer un tab qui se supprime a la fin de la methode
-    tab[0]= this->traffic[0]/(this->traffic[0]+this->traffic[1]+this->traffic[2]+this->traffic[3]);
-    tab[1]= this->traffic[1]/(this->traffic[0]+this->traffic[1]+this->traffic[2]+this->traffic[3]);
-    tab[2]= this->traffic[2]/(this->traffic[0]+this->traffic[1]+this->traffic[2]+this->traffic[3]);
-    tab[3]= this->traffic[3]/(this->traffic[0]+this->traffic[1]+this->traffic[2]+this->traffic[3]);
+    tab[0]=   traffic[0]/(  traffic[0]+  traffic[1]+  traffic[2]+  traffic[3]);
+    tab[1]=   traffic[1]/(  traffic[0]+  traffic[1]+  traffic[2]+  traffic[3]);
+    tab[2]=   traffic[2]/(  traffic[0]+  traffic[1]+  traffic[2]+  traffic[3]);
+    tab[3]=   traffic[3]/(  traffic[0]+  traffic[1]+  traffic[2]+  traffic[3]);
     return tab;
 } //----- Fin de M�thode
 
 Sensor* Sensor::GetNext()
 {
 
-    return this->nextSensor;
+    return   nextSensor;
 
 }
 
@@ -68,15 +68,15 @@ Sensor* Sensor::GetNext()
  //
  {
      // updating traffic[4]
-    if (currentTime - this->lastTime<300){
-        this->traffic[lastState]=+currentTime - this->lastTime;
+    if (currentTime -   lastTime<300){
+          traffic[lastState]=+currentTime -   lastTime;
         }
     else {
-        this->traffic[lastState]=+300;
+          traffic[lastState]=+300;
     }
     //updating lastTime and lastState
-    this->lastState=currentTime;
-    this->lastState=state;
+      lastState=currentTime;
+      lastState=state;
 
  }
 
@@ -106,10 +106,15 @@ Sensor::Sensor(int Id)
 #ifdef MAP
     cout << "Appel au constructeur de <${file_base}>" << endl;
 #endif
-    this->idSensor=Id;
-    this->nextSensor=NULL;
-
-
+      idSensor=Id;
+      nextSensor=NULL;
+      traffic[0]=0;
+      traffic[1]=0;
+      traffic[2]=0;
+      traffic[3]=0;
+      //to avoid a problem at the first add
+      lastState=-1;
+      lastTime=0;
 } //----- Fin de ${file_base}
 
 

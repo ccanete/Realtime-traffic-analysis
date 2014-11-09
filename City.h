@@ -11,6 +11,7 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include "Sensor.h"
+
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
@@ -27,11 +28,19 @@ class City
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    // type Méthode ( liste de paramètres );
+    void DisplayStats(int tab[4]);
     // Mode d'emploi :
     //
     // Contrat :
     //
+    void DisplayMax(int tab[7]);
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
+    void addState(int time, int day, int id, int traffic,int sensorState);
+
+    void updateTraffic(int traffic, int time);
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -69,11 +78,9 @@ protected:
 private:
 //------------------------------------------------------- Méthodes privées
 
-    void addState(int time, int day, int id, int traffic,int sensorState);
 
-    void updateTraffic(int traffic, int time);
 
-    string max_TS();
+    //string max_TS();
 
 protected:
 //----------------------------------------------------- Attributs protégés

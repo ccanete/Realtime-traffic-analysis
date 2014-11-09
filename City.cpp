@@ -31,11 +31,63 @@ using namespace std;
 //-------------------------------------------------------- Fonctions amies
 
 //----------------------------------------------------- Méthodes publiques
-// type City::Méthode ( liste de paramètres )
+void City::DisplayStats(int tab[4])
 // Algorithme :
-//
-//{
-//} //----- Fin de Méthode
+{
+    cout<<"V "<<tab[0]<<"%"<<endl;
+    cout<<"J "<<tab[1]<<"%"<<endl;
+    cout<<"R "<<tab[2]<<"%"<<endl;
+    cout<<"N "<<tab[3]<<"%"<<endl;
+} //----- Fin de Méthode
+
+void City::DisplayMax(int tab[7])
+// Algorithme :
+{
+    cout<<tab[0]<<" "<<tab[1]<<" "<<tab[2]<<" "<<tab[3]<<" "<<tab[4]<<" "<<tab[5]<<" "<<tab[6]<<"%"<<endl;
+
+} //----- Fin de Méthode
+
+void City::addState(int time, int day, int id, int traffic, int sensorState)
+{
+    Sensor* cur =  listSensors;
+    while(cur->GetNext()!=NULL or cur->GetId()!=id)
+    {
+        cur=cur->GetNext();
+    }
+    //case the sensor doesn't already exist
+    if(cur->GetNext()==NULL)
+    {
+        Sensor * newSensor = new Sensor(id);
+        cur->Add(*newSensor);
+        cur=cur->GetNext();
+    }
+
+    updateTraffic(traffic, time);
+
+    cur->SensorUpdate(time, sensorState);
+
+}
+
+void City::updateTraffic(int traffic, int time)
+{
+    realTimeSensorState=0;
+    Sensor* cur = listSensors;
+    while(cur->GetNext()!=NULL)
+    {
+        if(traffic)
+        {
+            realTimeSensorState++;
+        }
+    }
+
+    if(realTimeSensorState>maximumValues)
+    {
+        maximumValues=realTimeSensorState;
+        trafficTime=time;
+    }
+}
+
+
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -64,6 +116,8 @@ City::City ( )
 #ifdef MAP
     cout << "Appel au constructeur de <City>" << endl;
 #endif
+    listSensors=NULL;
+    howManySensors=0;
 } //----- Fin de City
 
 
@@ -87,46 +141,6 @@ City::~City ( )
 //
 //{
 //} //----- Fin de Méthode
-
-    void City::addState(int time, int day, int id, int traffic, int sensorState)
-    {
-        Sensor* cur = this->listSensors;
-        while(cur->GetNext()!=NULL or cur->GetId()!=id)
-        {
-            cur=cur->GetNext();
-        }
-        //case the sensor doesn't already exist
-        if(cur->GetNext()==NULL)
-        {
-            Sensor * newSensor = new Sensor(id);
-            cur->Add(*newSensor);
-            cur=cur->GetNext();
-        }
-
-        this->updateTraffic(traffic, time);
-
-        cur->SensorUpdate(time, sensorState);
-
-    }
-
-    void City::updateTraffic(int traffic, int time)
-    {
-        realTimeSensorState=0;
-        Sensor* cur = listSensors;
-        while(cur->GetNext()!=NULL)
-        {
-            if(traffic)
-            {
-                realTimeSensorState++;
-            }
-        }
-
-        if(realTimeSensorState>maximumValues)
-        {
-            maximumValues=realTimeSensorState;
-            trafficTime=time;
-        }
-    }
 
 
 

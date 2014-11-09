@@ -1,6 +1,9 @@
 #makefile a finir
 CXX=g++
 
+client: main.o City.o Sensor.o
+	$(CXX) City.o Sensor.o main.o -o client
+
 main.o: main.cpp
 	$(CXX) -c main.cpp
 

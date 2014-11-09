@@ -41,10 +41,10 @@ int main(void)
     StringId=Command.substr(0,Command.find(" "));
     IntId=atoi(StringId.c_str());
     //call the methode here
-     cout<<StringId<<endl;
+     cout<<StringId<<" "<<IntId<<endl;
      StringId="";
 
-     } else if (Command.substr(0,12).compare("STATS_StringD7_H24")==0) {
+     } else if (Command.substr(0,12).compare("STATS_D7_H24")==0) {
         Command=Command.substr(12+1,Command.npos);
         StringD7=Command.substr(0,Command.find(" "));
         IntD7=atoi(StringD7.c_str());
@@ -53,18 +53,18 @@ int main(void)
         IntHour=atoi(StringHour.c_str());
         //call the methode here
         //test
-        cout<<StringD7<<endl;
-        cout<<StringHour<<endl;
+        cout<<StringD7<<" "<<IntD7<<endl;
+        cout<<StringHour<<" "<<IntHour<<endl;
         StringD7=" ";
         StringHour=" ";
 
-      } else if (Command.substr(0,8).compare("STATS_StringD7")==0) {
+      } else if (Command.substr(0,8).compare("STATS_D7")==0) {
           Command=Command.substr(8+1,Command.npos);
           StringD7=Command.substr(0,Command.find(" "));
           IntD7=atoi(StringD7.c_str());
           //call the methode here
           //test
-          cout<<StringD7<<endl;
+          cout<<StringD7<<" "<<IntD7<<endl;
           StringD7="";
 
       }
@@ -120,7 +120,7 @@ int main(void)
           cout<<StringD7<<" "<< IntD7<<endl;
           cout<<StringValue<<" "<< IntValue<<endl;
         // ----------------------------call the addMethode here----------------------------
-        //->
+
 
           // in order to empty the string
           StringId="";
@@ -136,8 +136,8 @@ int main(void)
 
             }
       else if (Command.substr(0,7).compare("MAX_TS")==0) {
-          Command=Command.substr(7+1,Command.npos);
-          cout<<Command<<endl;
+
+
 
 
             }
