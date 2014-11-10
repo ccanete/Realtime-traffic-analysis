@@ -28,7 +28,7 @@ class Sensor
 public:
 
 //----------------------------------------------------- M�thodes publiques
-int*  StatsIdSensor();
+void StatsIdSensor();
     // Mode d'emploi :
     //
     // Contrat :return the sensors stats in a string

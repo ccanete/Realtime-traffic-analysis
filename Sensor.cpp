@@ -45,7 +45,7 @@ void Sensor::Add(Sensor& theOneToAdd){
 
 
 
-int* Sensor::StatsIdSensor()
+void Sensor::StatsIdSensor()
 // Algorithme :
 {
     // calculing percentage in a tab
@@ -54,7 +54,13 @@ int* Sensor::StatsIdSensor()
     tab[1]=   traffic[1]/(  traffic[0]+  traffic[1]+  traffic[2]+  traffic[3]);
     tab[2]=   traffic[2]/(  traffic[0]+  traffic[1]+  traffic[2]+  traffic[3]);
     tab[3]=   traffic[3]/(  traffic[0]+  traffic[1]+  traffic[2]+  traffic[3]);
-    return tab;
+
+    // to display stats of this sensor
+    cout<<"V "<<tab[0]<<"%"<<endl;
+    cout<<"J "<<tab[1]<<"%"<<endl;
+    cout<<"R "<<tab[2]<<"%"<<endl;
+    cout<<"N "<<tab[3]<<"%"<<endl;
+
 } //----- Fin de M�thode
 
 Sensor* Sensor::GetNext()

@@ -10,7 +10,7 @@ int main(void)
 
     //create a city
     City* Lyon=new City();
-    //to stock the cin
+    //String to stock the cin
     string StringId;
     string StringYear;
     string StringMonth;
@@ -21,7 +21,7 @@ int main(void)
     string StringValue;
     string StringD7;
     string Command;
-    //to convert into int
+    //convert into int in order to give as argument to method
     int IntId;
     int IntYear;
     int IntMonth;
@@ -31,45 +31,52 @@ int main(void)
     int IntSeconde;
     int IntValue;
     int IntD7;
+    // stock the line as a string in Command
+    getline(cin,Command);
 
+    while (Command.compare("EXIT")!=0) {
 
-   getline(cin,Command);
-   //cout<<Command<<endl;//pour tester la validite
-   while (Command.compare("EXIT")!=0) {
       if (Command.substr(0,7).compare("STATS_C")==0) {
-    Command=Command.substr(7+1,Command.npos);
-    StringId=Command.substr(0,Command.find(" "));
-    IntId=atoi(StringId.c_str());
-    //call the methode here
-     cout<<StringId<<" "<<IntId<<endl;
-     StringId="";
+        // cut the string to stock the Id of the captor as a string then a int
+        Command=Command.substr(7+1,Command.npos);
+        StringId=Command.substr(0,Command.find(" "));
+        IntId=atoi(StringId.c_str());
+        //-------------------call the methode here----------
+        //trace
+        cout<<StringId<<" "<<IntId<<endl;
+        // empty the string
+        StringId="";
 
      } else if (Command.substr(0,12).compare("STATS_D7_H24")==0) {
+        // cut string to stock the day and hour as a string then a int
         Command=Command.substr(12+1,Command.npos);
         StringD7=Command.substr(0,Command.find(" "));
         IntD7=atoi(StringD7.c_str());
         Command=Command.substr(Command.find(" ")+1,Command.npos);
         StringHour=Command.substr(0,Command.find(" "));
         IntHour=atoi(StringHour.c_str());
-        //call the methode here
-        //test
+        //--------------call the methode here-------------------
+        //trace
         cout<<StringD7<<" "<<IntD7<<endl;
         cout<<StringHour<<" "<<IntHour<<endl;
+        //empty the string
         StringD7=" ";
         StringHour=" ";
 
       } else if (Command.substr(0,8).compare("STATS_D7")==0) {
+          //cut the string to stock day as a string and then as a int
           Command=Command.substr(8+1,Command.npos);
           StringD7=Command.substr(0,Command.find(" "));
           IntD7=atoi(StringD7.c_str());
-          //call the methode here
-          //test
+          //--------------call the methode here---------------
+          //trace
           cout<<StringD7<<" "<<IntD7<<endl;
+          //empty the string
           StringD7="";
 
       }
       else if (Command.substr(0,3).compare("ADD")==0) {
-
+          //cut the string to stock id year month day hour minute seconde D7 and value as string
           Command=Command.substr(3+1,Command.npos);
 
           StringId=Command.substr(0,Command.find(" "));
@@ -109,7 +116,7 @@ int main(void)
            IntD7=atoi(StringD7.c_str());
 
 
-          // verif all string and int
+          // trace
           cout<<StringId<<" "<< IntId<<endl;
           cout<<StringYear<<" "<< IntYear<<endl;
           cout<<StringMonth<<" "<< IntMonth<<endl;
@@ -137,12 +144,13 @@ int main(void)
             }
       else if (Command.substr(0,7).compare("MAX_TS")==0) {
 
-
+        //-----------call methode here------------------
 
 
             }
+      // empty the string and take the next line
       Command="";
-       getline(cin,Command);
+      getline(cin,Command);
    }
 
    return 0;
