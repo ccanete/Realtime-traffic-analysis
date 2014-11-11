@@ -6,31 +6,17 @@
     copyright            : (C) ${year} par ${user}
 *************************************************************************/
 
-//---------- Réalisation de la classe <City> (fichier City.cpp) --
+//---------- Realisation de la classe <City> (fichier City.cpp) --
 
-//---------------------------------------------------------------- INCLUDE
-
-//-------------------------------------------------------- Include système
 using namespace std;
 #include <iostream>
 #include <string>
 
-//------------------------------------------------------ Include personnel
 #include "City.h"
 #include "Sensor.h"
 
-
-//------------------------------------------------------------- Constantes
-
-//---------------------------------------------------- Variables de classe
-
-//----------------------------------------------------------- Types privés
-
-
-//----------------------------------------------------------------- PUBLIC
-//-------------------------------------------------------- Fonctions amies
-
 //----------------------------------------------------- Méthodes publiques
+
 void City::DisplayStats(int tab[4])
 // Algorithme :
 {
@@ -38,13 +24,13 @@ void City::DisplayStats(int tab[4])
     cout<<"J "<<tab[1]<<"%"<<endl;
     cout<<"R "<<tab[2]<<"%"<<endl;
     cout<<"N "<<tab[3]<<"%"<<endl;
-} //----- Fin de Méthode
+} //----- Fin de Methode
 
 void City::DisplayMax(int tab[7])
 // Algorithme :
 {
     cout<<tab[0]<<" "<<tab[1]<<" "<<tab[2]<<" "<<tab[3]<<" "<<tab[4]<<" "<<tab[5]<<" "<<tab[6]<<"%"<<endl;
-
+    
 } //----- Fin de Méthode
 
 void City::addState(int time, int day, int id, int traffic, int sensorState)
@@ -89,26 +75,7 @@ void City::updateTraffic(int traffic, int time)
 
 
 
-
-//------------------------------------------------- Surcharge d'opérateurs
-//City & City::operator = ( const City & unCity )
-// Algorithme :
-//
-//{
-//} //----- Fin de operator =
-
-
 //-------------------------------------------- Constructeurs - destructeur
-City::City ( const City & unCity )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <City>" << endl;
-#endif
-} //----- Fin de City (constructeur de copie)
-
-
 City::City ( )
 // Algorithme :
 //
@@ -116,6 +83,22 @@ City::City ( )
 #ifdef MAP
     cout << "Appel au constructeur de <City>" << endl;
 #endif
+
+	//sensors states classified by days and hours
+	sensorsState [7][24][4];
+
+    //table of the maximum values
+	maximumValues=0;
+    //date and state of the max traffic
+	trafficTime=0;
+	trafficDelay=0;
+
+    //RealTime state
+    realTimeSensorState=0;
+    //Time of the last state inserted
+    timeLastInsert=0;
+    
+	//Sensors
     listSensors=NULL;
     howManySensors=0;
 } //----- Fin de City
@@ -129,18 +112,6 @@ City::~City ( )
     cout << "Appel au destructeur de <City>" << endl;
 #endif
 } //----- Fin de ~City
-
-
-//------------------------------------------------------------------ PRIVE
-
-//----------------------------------------------------- Méthodes protégées
-
-//------------------------------------------------------- Méthodes privées
-// type City::Méthode ( liste de paramètres )
-// Algorithme :
-//
-//{
-//} //----- Fin de Méthode
 
 
 

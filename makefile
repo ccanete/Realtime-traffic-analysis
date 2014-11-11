@@ -1,21 +1,18 @@
-#makefile a finir
 CXX=g++
 
-client: main.o City.o Sensor.o
-	$(CXX) City.o Sensor.o main.o -o client
+client: Sensor.o City.o main.o
+	$(CXX) -o client City.o Sensor.o main.o
 
-main.o: main.cpp
-	$(CXX) -c main.cpp
+main.o: main.cpp Sensor.h City.h
+	$(CXX) -c -DMAP main.cpp
 
 Sensor.o: Sensor.cpp Sensor.h
-	$(CXX) -c Sensor.cpp
+	$(CXX) -c -DMAP Sensor.cpp
 
  
 City.o : City.cpp City.h Sensor.h
-	$(CXX) -c City.cpp
+	$(CXX) -c -DMAP City.cpp
 
 #in order to clean old .o
 clean:
-	rm *.o
-
-
+	rm -rf *.o
