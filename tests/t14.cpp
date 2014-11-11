@@ -25,7 +25,7 @@ int main()
 				if (id < 756) val = "V";
 				else if ( d7 < 6)
 				{
-					if ( 6 < h && h < 10) val = "J";
+					if ( 6 < h && h < 9) val = "J";
 					else if ( 17 < h && h < 20 && d7 == 5) val = "N";
 					else if ( 17 < h && h < 20) val = "R";
 					else val = "V";
