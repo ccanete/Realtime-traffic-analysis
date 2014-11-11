@@ -11,6 +11,7 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include "Sensor.h"
+#include <time.h>
 
 
 //------------------------------------------------------------------------
@@ -35,9 +36,10 @@ public:
     //
     // Contrat :
     //
-    void addState(int time, int day, int id, int traffic,int sensorState);
+    void AddState(time_t time, int day, int id, char Value);
 
-    void updateTraffic(int traffic, int time);
+
+
 
 
 //------------------------------------------------- Surcharge d'opérateurs
@@ -75,7 +77,11 @@ protected:
 private:
 //------------------------------------------------------- Méthodes privées
 
-
+    void updateTraffic(int traffic, time_t time);
+    
+    bool isThereTraffic (char Value);
+    
+	int sensorStateToInt (char Value);
 
     //string max_TS();
 

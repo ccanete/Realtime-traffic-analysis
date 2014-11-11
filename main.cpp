@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <ctime>
 
 #include "Sensor.h"
 #include "City.h"
@@ -26,6 +27,12 @@ int main(void)
     int Seconde;
     char Value;
     int D7;
+    bool traffic;
+    int SensorState;
+    
+    //time structure
+    time_t time;	
+    struct tm date;
     
     // get commands entered by users
     cin>>Command;
@@ -114,9 +121,23 @@ int main(void)
           
         
         // ----------------------------call the addMethode here----------------------------
-        //cast char to int for the sensor state
+		//time=castTime(Year, Month, Day, Hour, Minute, Seconde);
+		
+			date.tm_year=Year - 1900;
+			date.tm_mon=Month -1; // cause january = 0
+			date.tm_mday=Day;
+			date.tm_hour=Hour;
+			date.tm_min=Minute;
+			date.tm_sec=Seconde;
+			date.tm_isdst=-1;
+			
+			time=mktime(&date);
+			
+			#ifdef MAP
+			cout<< "secondes : "<<(int) time << endl;
+			#endif
         
-        //City.addState(int time, Day, Id, int traffic, sensorState)
+        Lyon->AddState(time ,D7, Id, Value);
         
         
 		// Clear the command
@@ -147,4 +168,5 @@ int main(void)
 	
    return 0;
 }
+
 
