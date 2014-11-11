@@ -40,7 +40,33 @@ void City::AddState(time_t time, int day, int id, char Value)
 	cout<< "Ajout d'un etat" << endl;
 	#endif
 	
-	Sensor * cur = listSensors; //prblm pointeurs
+	Sensor * cur;
+	cur = listSensors; //prblm pointeurs
+	
+	//code supp
+	
+	#ifdef MAP
+	cout<< "Ajout d'un capteur" << endl;
+	#endif
+	
+	Sensor * newSensor = new Sensor(id);
+	#ifdef MAP
+	cout<< "creation ok" << endl;
+	#endif
+	
+	cur->Add(*newSensor);
+	
+	#ifdef MAP
+	cout<< "liste ok" << endl;
+	#endif
+	
+	cur=cur->GetNext();
+    //fin code sup
+	
+	
+	#ifdef MAP
+	cout<< "You shall not pass!" << endl;
+	#endif
 	
     while(cur->GetId()!=id or cur->GetNext()!=NULL)
     {
