@@ -70,7 +70,7 @@ Sensor* Sensor::GetNext()
 
 }
 
- void Sensor::SensorUpdate(int currentTime,int state)
+ void Sensor::SensorUpdate(int currentTime, int state)
  //
  {
      // updating traffic[4]
@@ -104,6 +104,14 @@ Sensor::Sensor ( const Sensor & unSensor )
 #endif
 } //----- Fin de ${file_base} (constructeur de copie)
 
+Sensor::Sensor ()
+//Alorithme :
+{
+	#ifdef MAP
+	cout << "Appel au constructeur de Sensor par default" << endl;
+	#endif
+	nextSensor=NULL;
+}
 
 Sensor::Sensor(int Id)
 // Algorithme :
@@ -128,6 +136,7 @@ Sensor::~Sensor ( )
 // Algorithme :
 //
 {
+
 #ifdef MAP
     cout << "Appel au destructeur de <${file_base}>" << endl;
 #endif
