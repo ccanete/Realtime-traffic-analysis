@@ -5,3 +5,6 @@ il faut faire un substring pour le main et ne pas recuperer les donnees dans com
 :pour le main faire une boucle qui parcours la string et la decoupe a chaque fois auil y a un espace dans des string de date et de commande 
 
 recuperer la case et faire -'0' et on recupere un int
+
+
+attention le add cree un nouveau pointeur a chaque add!!!!
