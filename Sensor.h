@@ -54,6 +54,12 @@ void Add(Sensor& theOneToAdd);// to add a sensor if there is no next
     //
     // Contrat :
     //
+    
+    Sensor(); //contructeur par defautmake
+    // Mode d'emploi :
+    //
+    // Contrat :
+    //
 
     Sensor(int Id);
     // Mode d'emploi :
@@ -83,7 +89,7 @@ private:
 unsigned int lastTime;//date of the last add(seconde)
 unsigned int traffic [4];// time passed in each state
 int idSensor;
-Sensor*  nextSensor;
+Sensor *  nextSensor;
 int lastState;
 //---------------------------------------------------------- Classes amies
 

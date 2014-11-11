@@ -40,11 +40,16 @@ void City::AddState(time_t time, int day, int id, char Value)
 	cout<< "Ajout d'un etat" << endl;
 	#endif
 	
-	Sensor* cur =  listSensors;
+	Sensor * cur = listSensors; //prblm pointeurs
+	
     while(cur->GetId()!=id or cur->GetNext()!=NULL)
     {
+        #ifdef MAP
+        cout << "Je suis dans la boucle" << endl;
+        #endif
         cur=cur->GetNext();
     }
+    
     
     //case the sensor doesn't already exist
     if(cur->GetNext()==NULL and cur->GetId()!=id)
@@ -56,6 +61,7 @@ void City::AddState(time_t time, int day, int id, char Value)
         Sensor * newSensor = new Sensor(id);
         cur->Add(*newSensor);
         cur=cur->GetNext();
+
     }
 
     updateTraffic(isThereTraffic(Value), time);

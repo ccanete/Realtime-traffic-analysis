@@ -4,7 +4,7 @@
 /*************************************************************************
                            ${file_base}  -  description
                              -------------------
-    d�but                : ${date}
+    debut                : ${date}
     copyright         1   : (C) ${year} par ${user}
 *************************************************************************/
 
@@ -109,6 +109,7 @@ Sensor::Sensor ()
 {
 	#ifdef MAP
 	cout << "Appel au constructeur de Sensor par default" << endl;
+	#endif
 	nextSensor=NULL;
 }
 
