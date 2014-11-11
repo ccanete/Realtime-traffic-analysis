@@ -50,6 +50,7 @@ cout << "STATS_C 1500" << endl;
 
 cout << "MAX_TS" << endl;
 
+cout << "EXIT" << endl;
    return 0;
 }
 
