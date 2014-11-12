@@ -29,7 +29,7 @@ B: options incohérentes
 
 C: incohérence de temps
 
-// l’utilisateur entre des données ne respectant pas les intervalles standard.
+// l’utilisateur entre des données ne respectant pas les intervalles temporels standard.
 
 7: Année, mois, jour incohérents
 // l’année n’est pas comprise dans l’intervalle  {2000-2100}.
@@ -41,7 +41,7 @@ C: incohérence de temps
 //Loption d7 ne se trouve pas dans l’intervalle {1-7};
 
 9: horaire incohérent.
-// l’option heure ne se trouve pas dans l’intervalle {0-23}.
+// l’option heure n’appartient pas à l’intervalle {0-23}.
 // L’option minutes n’appartient pas à l’intervalle {0-59}.
 // l’option seconde n’appartient pas à l’intervalle {0-59}.
 
@@ -72,5 +72,31 @@ D: le traitement standard
 // du lundi au jeudi, 50 % des capteurs sont rouges entre 18:00:00 et 19:59:00.
 // tous les vendredi, 50 % des capteurs sont noirs entre 18:00:00 et 19:59:00.
 // par défaut, les capteurs sont verts.
+// l’entrée est simulée par un programme de test.
 
+E: données manquantes
 
+// l’utilisateur cherche des statistiques introuvables
+
+15: la base et vide
+// L’utilisateur appelle les fonctions de statistiques/recherche alors qu’aucune donnée n’est enregistrée.
+
+16: capteur introuvable
+// le capteur rechercher n’a entrée aucune donnée.
+
+17: horaires introuvables 
+//L’horaire demander n’existe dans aucun enregistrement.
+
+18: jour introuvable
+//Le D7 demander n’existe dans aucun enregistrement.
+
+F: temporalité
+
+// Les capteurs n’envoient pas les informations de manière régulière.
+
+19: enregistrement à cheval sur deux plages horaires
+// L’utilisateur demande des statistiques pour une plage horaire dont le début est précédé par une dernière lecture de données avec une tolérance de cinq minutes.
+// si pour un capteur la dernière données est reçue entre h:55:00 et h:59:59, l’enregistrement est également valable pour la plage horaire h+1.
+
+20: enregistrement à cheval sur deux jours
+//L’utilisateur demande des statistiques pour un jour de semaine dont le début est précédé par une dernière lecture de données avec une tolérance de cinq minutes.
