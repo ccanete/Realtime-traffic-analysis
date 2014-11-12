@@ -137,6 +137,18 @@ City::~City ( )
 #ifdef MAP
     cout << "Appel au destructeur de <City>" << endl;
 #endif
+    Sensor* cur;
+    Sensor* nextcur=listSensors;
+    while (nextcur==NULL){
+        cur=nextcur;
+        nextcur=nextcur->GetNext();
+        cur->~Sensor();
+    }
+    listSensors=NULL;
+    delete this;
+} //----- Fin de ~City
+
+
 } //----- Fin de ~City
 
 
