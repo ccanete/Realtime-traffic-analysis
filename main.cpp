@@ -52,7 +52,8 @@ int main(void)
 
         cin>>Id;
         
-        //-------------------call the methode here----------
+        //Function called
+        Lyon->Stats_C(Id);
         
         //trace
         #ifdef MAP
@@ -147,7 +148,7 @@ int main(void)
 		#endif
 		  	
 
-        //-----------call methode here------------------
+        (*Lyon).Max_TS();	
         
 		// Clear the command
 		Command="";

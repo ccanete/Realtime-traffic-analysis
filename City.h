@@ -39,6 +39,9 @@ public:
     void AddState(time_t time, int day, int id, char Value);
 
 
+	void Max_TS();
+	
+	void Stats_C(int ID);
 
 
 
@@ -83,7 +86,6 @@ private:
     
 	int sensorStateToInt (char Value);
 
-    //string max_TS();
 
 protected:
 //----------------------------------------------------- Attributs protégés
@@ -97,12 +99,12 @@ private:
     //Array list of sensors
     Sensor* listSensors;
     //Number of sensors
-    int howManySensors;
+    float howManySensors;
 
     //table of the maximum values
-    unsigned int maximumValues;
+    float maximumValues;
     //date and state of the max traffic
-    unsigned int trafficTime;
+    time_t trafficTime;
     unsigned int trafficDelay;
 
     //RealTime state

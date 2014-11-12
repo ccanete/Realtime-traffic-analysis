@@ -44,9 +44,6 @@ void City::AddState(time_t time, int day, int id, char Value)
 
     while(((*cur).GetNext())!=NULL and (*cur).GetId()!=id)
     {
-		#ifdef MAP
-        cout << "Je suis dans la boucle" << endl;
-        #endif
         cur=(*cur).nextSensor;
     }
     
@@ -60,6 +57,7 @@ void City::AddState(time_t time, int day, int id, char Value)
         Sensor * newSensor = new Sensor(id);
         (*cur).nextSensor = newSensor;
         cur=(*cur).nextSensor;
+        howManySensors++;
 
     }
 
@@ -69,9 +67,23 @@ void City::AddState(time_t time, int day, int id, char Value)
     updateTraffic(time);
 }
 
+void City :: Max_TS(){
+	cout << howManySensors << " ont été enreistrés" << endl;
+	cout << "The max trafic was : "<<(int)(100*(maximumValues/howManySensors))<<" %."<<endl;
+	cout << "It was at : "<< ctime(&trafficTime)<<endl;
+}
 
-
-
+void City :: Stats_C(int ID){
+	
+	Sensor* cur = listSensors;
+    while((*cur).GetId()!=ID)
+    {
+        cur=(*cur).nextSensor;
+    }
+    
+    (*cur).StatsIdSensor();   
+	
+}
 
 //-------------------------------------------- Constructeurs - destructeur
 City::City ( )
@@ -123,10 +135,6 @@ City::~City ( )
 } //----- Fin de ~City
 
 
-} //----- Fin de ~City
-
-
-
 //------------------------------------ Private methodes
 
 int City :: sensorStateToInt (char Value)
@@ -173,28 +181,20 @@ bool City :: isThereTraffic (int Value)
 
 void City :: updateTraffic(time_t time)
 {
-	#ifdef MAP
-	cout<<"update traffic"<<endl;
-	#endif
 	
     realTimeSensorState=0;
     
     Sensor* cur = listSensors;
-    while(((*cur).GetNext())!=NULL) //bonne date ? si on ajoute une date de bouchon, il faut se référer à l'état de trafic actuel et donc modifier les autres etats de trafics
+    while(((*cur).GetNext())!=NULL) //declencher verif des 5 mins ?
     {
-		#ifdef MAP
-		cout <<"trafic actuel : "<<(*cur).lastState<<endl;
-		#endif
+			
         if(isThereTraffic((*cur).lastState))
         {
-            realTimeSensorState++;
+			realTimeSensorState++;
         }
         cur=(*cur).nextSensor;
 
     }
-    #ifdef MAP
-    cout<<"le trafic est de : "<<realTimeSensorState<<endl;
-    #endif
 
     if(realTimeSensorState>maximumValues)
     {

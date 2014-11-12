@@ -93,7 +93,7 @@ protected:
 private:
 //------------------------------------------------------- Attributs priv�s
 time_t lastTime;//date of the last add(seconde)
-unsigned int traffic [4];// time passed in each state
+float traffic [4];// time passed in each state
 int idSensor;
 //---------------------------------------------------------- Classes amies
 
