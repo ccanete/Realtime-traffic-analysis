@@ -27,6 +27,12 @@ class Sensor
 
 public:
 
+Sensor *  nextSensor;
+
+int lastState;
+
+
+
 //----------------------------------------------------- M�thodes publiques
 void StatsIdSensor();
     // Mode d'emploi :
@@ -34,11 +40,11 @@ void StatsIdSensor();
     // Contrat :return the sensors stats in a string
     //
 
-void SensorUpdate(int time,int state);
+void SensorUpdate(time_t time,int state);
     //Mode d'emploi : update tab traffic[4] and lastTime
 Sensor* GetNext();// send next sensor
 int GetId();// send the id of a sensor
-void Add(Sensor& theOneToAdd);// to add a sensor if there is no next
+void Add(Sensor theOneToAdd);// to add a sensor if there is no next
 
 //------------------------------------------------- Surcharge d'op�rateurs
   //  ${file_base} & operator = ( const ${file_base} & un${file_base} );
@@ -49,7 +55,7 @@ void Add(Sensor& theOneToAdd);// to add a sensor if there is no next
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    Sensor( const Sensor  & unSensor );
+    //Sensor( const Sensor  & unSensor );
     // Mode d'emploi (constructeur de copie) :
     //
     // Contrat :
@@ -86,11 +92,9 @@ protected:
 
 private:
 //------------------------------------------------------- Attributs priv�s
-unsigned int lastTime;//date of the last add(seconde)
+time_t lastTime;//date of the last add(seconde)
 unsigned int traffic [4];// time passed in each state
 int idSensor;
-Sensor *  nextSensor;
-int lastState;
 //---------------------------------------------------------- Classes amies
 
 //-------------------------------------------------------- Classes priv�es

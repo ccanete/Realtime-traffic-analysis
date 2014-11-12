@@ -39,61 +39,34 @@ void City::AddState(time_t time, int day, int id, char Value)
 	#ifdef MAP
 	cout<< "Ajout d'un etat" << endl;
 	#endif
-	
-	Sensor * cur;
-	cur = listSensors; //prblm pointeurs
-	
-	//code supp
-	
-	#ifdef MAP
-	cout<< "Ajout d'un capteur" << endl;
-	#endif
-	
-	Sensor * newSensor = new Sensor(id);
-	#ifdef MAP
-	cout<< "creation ok" << endl;
-	#endif
-	
-	cur->Add(*newSensor);
-	
-	#ifdef MAP
-	cout<< "liste ok" << endl;
-	#endif
-	
-	cur=cur->GetNext();
-    //fin code sup
-	
-	
-	#ifdef MAP
-	cout<< "You shall not pass!" << endl;
-	#endif
-	
-    while(cur->GetId()!=id or cur->GetNext()!=NULL)
+
+	Sensor* cur = &(*listSensors);
+
+    while(((*cur).GetNext())!=NULL and (*cur).GetId()!=id)
     {
-        #ifdef MAP
+		#ifdef MAP
         cout << "Je suis dans la boucle" << endl;
         #endif
-        cur=cur->GetNext();
+        cur=(*cur).nextSensor;
     }
     
-    
     //case the sensor doesn't already exist
-    if(cur->GetNext()==NULL and cur->GetId()!=id)
+    if((*cur).GetNext()==NULL and (*cur).GetId()!=id)
     {
 		#ifdef MAP
 		cout<< "Ajout d'un capteur" << endl;
 		#endif
 		
         Sensor * newSensor = new Sensor(id);
-        cur->Add(*newSensor);
-        cur=cur->GetNext();
+        (*cur).nextSensor = newSensor;
+        cur=(*cur).nextSensor;
 
     }
 
-    updateTraffic(isThereTraffic(Value), time);
 
-    cur->SensorUpdate(time, sensorStateToInt(Value)); //modifier sensor en consequence
-
+    (*cur).SensorUpdate(time, sensorStateToInt(Value));
+    
+    updateTraffic(time);
 }
 
 
@@ -124,7 +97,8 @@ City::City ( )
     timeLastInsert=0;
     
 	//Sensors
-    listSensors=NULL;
+	Sensor * sensorTemp = new Sensor();
+    listSensors = sensorTemp;
 
     howManySensors=0;
 } //----- Fin de City
@@ -164,20 +138,20 @@ int City :: sensorStateToInt (char Value)
 		}
 }
 
-bool City :: isThereTraffic (char Value)
+bool City :: isThereTraffic (int Value)
 {
 	switch (Value)
 		{
-		case 'V':
+		case 0:
 			return false;
 			break;
-		case 'J':
+		case 1:
 			return false;
 			break;
-		case 'R':
+		case 2:
 			return true;
 			break;
-		case 'N':
+		case 3:
 			return true;
 			break;
 		default: 
@@ -185,20 +159,37 @@ bool City :: isThereTraffic (char Value)
 		}
 }
 
-void City :: updateTraffic(int traffic, time_t time)
+void City :: updateTraffic(time_t time)
 {
+	#ifdef MAP
+	cout<<"update traffic"<<endl;
+	#endif
+	
     realTimeSensorState=0;
+    
     Sensor* cur = listSensors;
-    while(cur->GetNext()!=NULL)
+    while(((*cur).GetNext())!=NULL) //bonne date ? si on ajoute une date de bouchon, il faut se référer à l'état de trafic actuel et donc modifier les autres etats de trafics
     {
-        if(traffic)
+		#ifdef MAP
+		cout <<"trafic actuel : "<<(*cur).lastState<<endl;
+		#endif
+        if(isThereTraffic((*cur).lastState))
         {
             realTimeSensorState++;
         }
+        cur=(*cur).nextSensor;
+
     }
+    #ifdef MAP
+    cout<<"le trafic est de : "<<realTimeSensorState<<endl;
+    #endif
 
     if(realTimeSensorState>maximumValues)
     {
+		#ifdef MAP
+		cout<<"trafic max atteind"<<endl;
+		#endif
+		
         maximumValues=realTimeSensorState;
         trafficTime=time;
     }

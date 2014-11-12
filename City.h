@@ -77,9 +77,9 @@ protected:
 private:
 //------------------------------------------------------- Méthodes privées
 
-    void updateTraffic(int traffic, time_t time);
+    void updateTraffic(time_t time);
     
-    bool isThereTraffic (char Value);
+    bool isThereTraffic (int Value);
     
 	int sensorStateToInt (char Value);
 
