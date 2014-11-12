@@ -48,7 +48,7 @@ void Sensor::Add(Sensor theOneToAdd){
 void Sensor::StatsIdSensor()
 // Algorithme :
 {
-    // calculing percentage in a tab	
+    // calculing percentage in a tab
     int tab[4];//!!!! a changer car on ne peut renvoyer un tab qui se supprime a la fin de la methode
     tab[0]=100*(traffic[0]/(  traffic[0]+  traffic[1]+  traffic[2]+  traffic[3]));
     tab[1]=100*(traffic[1]/(  traffic[0]+  traffic[1]+  traffic[2]+  traffic[3]));
@@ -93,11 +93,11 @@ Sensor* Sensor::GetNext()
 Sensor::Sensor ()
 //Alorithme :
 {
-	#ifdef MAP
-	cout << "Appel au constructeur de Sensor par default" << endl;
-	#endif
-	
-	nextSensor=NULL;
+    #ifdef MAP
+    cout << "Appel au constructeur de Sensor par default" << endl;
+    #endif
+
+    nextSensor=NULL;
 }
 
 Sensor::Sensor(int Id)
@@ -107,8 +107,8 @@ Sensor::Sensor(int Id)
 #ifdef MAP
     cout << "Appel au constructeur de <${file_base}>" << endl;
 #endif
-      idSensor=Id;      
-	  //Sensor * sensorTemp = new Sensor();
+      idSensor=Id;
+      //Sensor * sensorTemp = new Sensor();
       //nextSensor=sensorTemp;
       nextSensor=NULL;
       traffic[0]=0;

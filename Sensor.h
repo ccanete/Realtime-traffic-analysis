@@ -60,7 +60,7 @@ void Add(Sensor theOneToAdd);// to add a sensor if there is no next
     //
     // Contrat :
     //
-    
+
     Sensor(); //contructeur par defautmake
     // Mode d'emploi :
     //
@@ -106,3 +106,4 @@ int idSensor;
 //----------------------------------------- Types d�pendants de <${file_base}>
 
 #endif // Sensor_H
+

@@ -26,22 +26,16 @@ class City
 
 public:
 //----------------------------------------------------- Méthodes publiques
-    void DisplayStats(int tab[4]);
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
-    void DisplayMax(int tab[7]);
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+
     void AddState(time_t time, int day, int id, char Value);
 
+    void STATS_D7_H24(int day,int hour);
 
-	void Max_TS();
-	
-	void Stats_C(int ID);
+    void STATS_D7(int day);
+
+    void Max_TS();
+
+    void Stats_C(int ID);
 
 
 
@@ -81,10 +75,10 @@ private:
 //------------------------------------------------------- Méthodes privées
 
     void updateTraffic(time_t time);
-    
+
     bool isThereTraffic (int Value);
-    
-	int sensorStateToInt (char Value);
+
+    int sensorStateToInt (char Value);
 
 
 protected:
@@ -124,3 +118,4 @@ private:
 //----------------------------------------- Types dépendants de <City>
 
 #endif // XXX_H
+
