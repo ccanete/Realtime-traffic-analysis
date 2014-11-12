@@ -7,7 +7,7 @@ A: formatage de l’input
 1: Ligne vide.
 //L’utilisateur rentre une ligne vide dans le programme.
 
-2: Espaces superflus
+//2: Espaces superflus
 //La commande contient des espaces supplémentairs entre les différentes options.
 
 3: options manquantes
@@ -53,10 +53,10 @@ D: le traitement standard
 // trois capteurs transmettent un événement par État. Vérification de cohérence des statistiques pour les trois capteurs.
 
 11: trafic journalier
-// trois capteurs transmettent un événement par État. Vérification de cohérence des statistiques pour un jour de la semaine.
+// trois capteurs transmettent un événement par jour. Vérification de cohérence des statistiques pour un jour de la semaine.
 
 12: Trafique horaire
-// trois capteurs transmettent un événement par État. Vérification de cohérence des statistiques pour un jour de la semaine et une heure.
+// trois capteurs transmettent des données à des instants différents. Vérification de cohérence des statistiques pour un jour de la semaine et une heure.
 
 13: trafic maximum
 // trois capteurs transmettent un événement par État. Recherche du maximum d’États noirs ou rouges.
