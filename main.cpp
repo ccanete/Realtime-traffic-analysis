@@ -12,7 +12,7 @@ int main(void)
 	
 	
     //create a city
-    City* Lyon=new City();
+    City* Lyon = new City();
     
     //String to stock commands entered by users
     string Command;
@@ -132,12 +132,8 @@ int main(void)
 			date.tm_isdst=-1;
 			
 			time=mktime(&date);
-			
-			#ifdef MAP
-			cout<< "secondes : "<<(int) time << endl;
-			#endif
         
-        Lyon->AddState(time ,D7, Id, Value);
+        (*Lyon).AddState(time ,D7, Id, Value);
         
         
 		// Clear the command

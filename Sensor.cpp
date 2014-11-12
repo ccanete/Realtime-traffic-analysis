@@ -15,6 +15,7 @@
 //-------------------------------------------------------- Include syst�me
 using namespace std;
 #include <iostream>
+#include <time.h>
 
 
 //------------------------------------------------------ Include personnel
@@ -36,10 +37,9 @@ int Sensor::GetId(){
     return   idSensor;
 }
 
-void Sensor::Add(Sensor& theOneToAdd){
-    if (  nextSensor==NULL){
-        *nextSensor=theOneToAdd;
-    }
+
+void Sensor::Add(Sensor theOneToAdd){
+    nextSensor=&theOneToAdd;
 }
 
 
@@ -70,12 +70,11 @@ Sensor* Sensor::GetNext()
 
 }
 
- void Sensor::SensorUpdate(int currentTime, int state)
- //
+ void Sensor::SensorUpdate(time_t currentTime, int state)
  {
      // updating traffic[4]
-    if (currentTime -   lastTime<300){
-          traffic[lastState]=+currentTime -   lastTime;
+    if (difftime(currentTime,lastTime)<300){
+          traffic[lastState]=+difftime(currentTime,lastTime);
         }
     else {
           traffic[lastState]=+300;
@@ -87,22 +86,9 @@ Sensor* Sensor::GetNext()
  }
 
 //------------------------------------------------- Surcharge d'op�rateurs
-//${file_base} & ${file_base}::operator = ( const ${file_base} & un${file_base} )
-// Algorithme :
-//
-//{
-//} //----- Fin de operator =
 
 
 //-------------------------------------------- Constructeurs - destructeur
-Sensor::Sensor ( const Sensor & unSensor )
-// Algorithme :
-//
-{
-#ifdef MAP
-    cout << "Appel au constructeur de copie de <${file_base}>" << endl;
-#endif
-} //----- Fin de ${file_base} (constructeur de copie)
 
 Sensor::Sensor ()
 //Alorithme :
@@ -110,6 +96,7 @@ Sensor::Sensor ()
 	#ifdef MAP
 	cout << "Appel au constructeur de Sensor par default" << endl;
 	#endif
+	
 	nextSensor=NULL;
 }
 
@@ -120,7 +107,9 @@ Sensor::Sensor(int Id)
 #ifdef MAP
     cout << "Appel au constructeur de <${file_base}>" << endl;
 #endif
-      idSensor=Id;
+      idSensor=Id;      
+	  //Sensor * sensorTemp = new Sensor();
+      //nextSensor=sensorTemp;
       nextSensor=NULL;
       traffic[0]=0;
       traffic[1]=0;
