@@ -46,15 +46,15 @@ using namespace std;
      stats[1]=0;
      stats[2]=0;
      stats[3]=0;
-     int sum;
+     double sum;
 
      for (int hour=0;hour<24;hour++){
-        stats[0]+=sensorsState[day-1][hour][0];
-        stats[1]+=sensorsState[day-1][hour][1];
-        stats[2]+=sensorsState[day-1][hour][2];
-        stats[3]+=sensorsState[day-1][hour][3];
+        stats[0]+=(double)sensorsState[day][hour][0];
+        stats[1]+=(double)sensorsState[day][hour][1];
+        stats[2]+=(double)sensorsState[day][hour][2];
+        stats[3]+=(double)sensorsState[day][hour][3];
      }
-     sum= stats[0]+ stats[1]+ stats[2]+ stats[3];
+     sum= stats[0]+stats[1]+ stats[2]+ stats[3];
      if (sum!=0){
      stats[0]=((double)stats[0]/(double)sum)*100;
      stats[1]=((double)stats[1]/(double)sum)*100;
@@ -62,15 +62,15 @@ using namespace std;
      stats[3]=((double)stats[3]/(double)sum)*100;
      }
 
-     cout<<"V "<<stats[0]<<"%"<<endl;
-     cout<<"J "<<stats[1]<<"%"<<endl;
-     cout<<"R "<<stats[2]<<"%"<<endl;
-     cout<<"N "<<stats[3]<<"%"<<endl;
+     cout<<"V "<<(int)stats[0]<<"%"<<endl;
+     cout<<"J "<<(int)stats[1]<<"%"<<endl;
+     cout<<"R "<<(int)stats[2]<<"%"<<endl;
+     cout<<"N "<<(int)stats[3]<<"%"<<endl;
  }
 
 
 
-void City::AddState(time_t time, int day, int id, char Value,int hour,int minute)
+void City::AddState(time_t time, int id, char Value)
 {
     #ifdef MAP
     cout<< "Ajout d'un etat" << endl;
@@ -99,8 +99,11 @@ void City::AddState(time_t time, int day, int id, char Value,int hour,int minute
 
 
     float *timeActivate=(*cur).SensorUpdate(time, sensorStateToInt(Value));
+    if (timeActivate[1]!=-1)
     sensorStateUpdate(timeActivate);
+
     updateTraffic(time);
+
     delete timeActivate;
 }
 
@@ -170,13 +173,13 @@ City::~City ( )
 #endif
     Sensor* cur;
     Sensor* nextcur=listSensors;
-    while (nextcur==NULL){
+    while (nextcur!=NULL){
         cur=nextcur;
         nextcur=nextcur->GetNext();
-        cur->~Sensor();
+        delete cur;
     }
     listSensors=NULL;
-    delete this;
+
 } //----- Fin de ~City
 
 
@@ -233,7 +236,7 @@ void City :: updateTraffic(time_t time)
     while(((*cur).GetNext())!=NULL) //declencher verif des 5 mins ?
     {
 
-        if(isThereTraffic((*cur).lastState))
+        if(isThereTraffic((*cur).lastState) and difftime((*cur).lastTime,time)<300)
         {
             realTimeSensorState++;
         }
@@ -265,10 +268,10 @@ void City::sensorStateUpdate( float* timeActivate){
     //il faut refabriquer une date depuis timeActivate[3] qui le time du last add
     //timeActivate[2] valeur du last add
     //timeActivate[1] temps passee actif du capteur passe
-//cout<<day<<" - "<<hour<<" - "<<(int)timeActivate[1]<<endl;
+cout<<day<<" - "<<hour<<" - "<<(int)timeActivate[1]<<endl;
 
-if (minute <55){
-    sensorsState[day][hour][(int)timeActivate[1]]+=(int)timeActivate[0];
+if (minute<55){
+    sensorsState[day][hour][(int)timeActivate[1]]+=timeActivate[0];
 
 }
 
@@ -278,10 +281,10 @@ else{
 
     if(hour!=23){
         //si un sensor est activee plus de 60 min par heure
-        if(seconde+(int)timeActivate[0]>3600){
+        if(seconde+minute*60+(int)timeActivate[0]>3600){
             //the case where we need to add in two different cases(hour)
-            sensorsState[day][hour][(int)timeActivate[1]]+=3600-seconde;
-            sensorsState[day][hour+1][(int)timeActivate[1]]+=(int)timeActivate[0]-3600-seconde;
+            sensorsState[day][hour][(int)timeActivate[1]]+=3600-seconde+minute*60;
+            sensorsState[day][hour+1][(int)timeActivate[1]]+=(int)timeActivate[0]-3600-seconde+minute*60;
         }
         else{
             sensorsState[day][hour][(int)timeActivate[1]]+=(int)timeActivate[0];
@@ -291,19 +294,19 @@ else{
 
     else{
         //si on est a 23 heure et + de 57 minutes
-        if(seconde+(int)timeActivate[0]>3600){
+        if(seconde+minute*60+(int)timeActivate[0]>3600){
             //the case where we need to add in two different cases(hour) two different day
             if (day!=6){
-                sensorsState[day][hour][(int)timeActivate[1]]+=3600-seconde;
-                sensorsState[day+1][0][(int)timeActivate[1]]+=(int)timeActivate[0]-3600-seconde;
+                sensorsState[day][hour][(int)timeActivate[1]]+=3600-seconde+minute*60;
+                sensorsState[day+1][0][(int)timeActivate[1]]+=(int)timeActivate[0]-3600-seconde+minute*60;
             }
             else{
-                sensorsState[day][hour][(int)timeActivate[1]]+=3600-seconde;
-                sensorsState[0][0][(int)timeActivate[1]]+=(int)timeActivate[0]-3600-seconde;
+                sensorsState[day][hour][(int)timeActivate[1]]+=3600-seconde+minute*60;
+                sensorsState[0][0][(int)timeActivate[1]]+=(int)timeActivate[0]-3600-seconde+minute*60;
             }
         }
         else{
-            sensorsState[day-1][hour][(int)timeActivate[1]]+=(int)timeActivate[0];
+            sensorsState[day][hour][(int)timeActivate[1]]+=(int)timeActivate[0];
         }
 
     }
