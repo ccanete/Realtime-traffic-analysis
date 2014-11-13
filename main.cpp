@@ -138,7 +138,7 @@ int main(void)
 
             time=mktime(&date);
 
-        (*Lyon).AddState(time ,D7, Id, Value);
+        (*Lyon).AddState(time ,D7, Id, Value,Hour,Minute);
 
 
         // Clear the command
@@ -169,5 +169,4 @@ int main(void)
     delete Lyon;
    return 0;
 }
-
 

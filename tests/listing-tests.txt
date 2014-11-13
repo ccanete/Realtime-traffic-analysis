@@ -1,67 +1,23 @@
 Tests numérotés par catégories 
 
-A: formatage de l’input
 
-//Erreur à la saisie ou fichier log incohérent
-
-1: Ligne vide.
-//L’utilisateur rentre une ligne vide dans le programme.
-
-//2: Espaces superflus
-//La commande contient des espaces supplémentairs entre les différentes options.
-
-3: options manquantes
-// la commande est incomplète.
-
-4: Options supplémentaires non désirées
-// la commande contient des options supplémentaires ou plusieurs commandes ont été concaténées par erreur.
-
-
-B: options incohérentes
-
-// les options sont incohérentes pour l’utilisation dans l’absolu.
-
-5: typage des nombres
-//La conversion de l’option en type nombre est problématique.
-
-6: option non valide
-// au moins une option de la commande n’est pas reconnue.
-
-C: incohérence de temps
-
-// l’utilisateur entre des données ne respectant pas les intervalles temporels standard.
-
-7: Année, mois, jour incohérents
-// l’année n’est pas comprise dans l’intervalle  {2000-2100}.
-// Lemois n’est pas compris dans l’intervalle {1-12}.
-// le jour n’est pas compris dans les intervalles {1-28} ou {1-29} ou {1-30} ou {1-31}
-//selon le mois.
-
-8: d7 incohérent.
-//Loption d7 ne se trouve pas dans l’intervalle {1-7};
-
-9: horaire incohérent.
-// l’option heure n’appartient pas à l’intervalle {0-23}.
-// L’option minutes n’appartient pas à l’intervalle {0-59}.
-// l’option seconde n’appartient pas à l’intervalle {0-59}.
-
-D: le traitement standard
+A: le traitement standard
 
 // l’utilisateur rentre des données cohérentes pour une utilisation usuelle.
 
-10: Utilisation avec un triplé de capteurs
+1: Utilisation avec un triplé de capteurs
 // trois capteurs transmettent un événement par État. Vérification de cohérence des statistiques pour les trois capteurs.
 
-11: trafic journalier
+2: trafic journalier
 // trois capteurs transmettent un événement par jour. Vérification de cohérence des statistiques pour un jour de la semaine.
 
-12: Trafique horaire
+3: Trafique horaire
 // trois capteurs transmettent des données à des instants différents. Vérification de cohérence des statistiques pour un jour de la semaine et une heure.
 
-13: trafic maximum
+4: trafic maximum
 // trois capteurs transmettent un événement par État. Recherche du maximum d’États noirs ou rouges.
 
-14 simulation d’un fonctionnement réel
+5 simulation d’un fonctionnement réel
 // Plus de 20 millions d’événement.
 // 1500 capteurs.
 // les événements arrivent par ordre chronologique et par ordre des identificateurs des capteurs.
@@ -74,29 +30,40 @@ D: le traitement standard
 // par défaut, les capteurs sont verts.
 // l’entrée est simulée par un programme de test.
 
-E: données manquantes
+B: données manquantes
 
 // l’utilisateur cherche des statistiques introuvables
 
-15: la base et vide
+6: la base et vide
 // L’utilisateur appelle les fonctions de statistiques/recherche alors qu’aucune donnée n’est enregistrée.
 
-16: capteur introuvable
+7: capteur introuvable
 // le capteur rechercher n’a entrée aucune donnée.
 
-17: horaires introuvables 
+8: horaires introuvables 
 //L’horaire demander n’existe dans aucun enregistrement.
 
-18: jour introuvable
+9: jour introuvable
 //Le D7 demander n’existe dans aucun enregistrement.
 
-F: temporalité
+C: temporalité
 
 // Les capteurs n’envoient pas les informations de manière régulière.
 
-19: enregistrement à cheval sur deux plages horaires
+10: enregistrement à cheval sur deux plages horaires
 // L’utilisateur demande des statistiques pour une plage horaire dont le début est précédé par une dernière lecture de données avec une tolérance de cinq minutes.
-// si pour un capteur la dernière données est reçue entre h:55:00 et h:59:59, l’enregistrement est également valable pour la plage horaire h+1.
+// si pour un capteur la dernière données est reçue entre h:55:01 et h:59:59, l’enregistrement est également valable pour la plage horaire h+1.
 
-20: enregistrement à cheval sur deux jours
+11: enregistrement à cheval sur deux jours
 //L’utilisateur demande des statistiques pour un jour de semaine dont le début est précédé par une dernière lecture de données avec une tolérance de cinq minutes.
+
+
+D: formatage de l’input
+
+//Erreur à la saisie ou fichier log incohérent
+
+12: Ligne vide.
+//L’utilisateur rentre une ligne vide dans le programme.
+
+13: Options supplémentaires non désirées
+// la commande contient des options supplémentaires ou plusieurs commandes ont été concaténées par erreur.
