@@ -27,7 +27,7 @@ class City
 public:
 //----------------------------------------------------- Méthodes publiques
 
-    void AddState(time_t time, int day, int id, char Value,int hour,int minute);
+    void AddState(time_t time, int id, char Value);
 
     void STATS_D7_H24(int day,int hour);
 

@@ -28,8 +28,8 @@ class Sensor
 public:
 
 Sensor *  nextSensor;
-
 int lastState;
+time_t lastTime;//date of the last add(seconde)
 
 
 
@@ -92,7 +92,6 @@ protected:
 
 private:
 //------------------------------------------------------- Attributs priv�s
-time_t lastTime;//date of the last add(seconde)
 float traffic [4];// time passed in each state
 int idSensor;
 //---------------------------------------------------------- Classes amies

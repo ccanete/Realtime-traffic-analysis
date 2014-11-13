@@ -27,8 +27,6 @@ int main(void)
     int Seconde;
     char Value;
     int D7;
-    bool traffic;
-    int SensorState;
 
     //time structure
     time_t time;
@@ -70,6 +68,8 @@ int main(void)
         #endif
 
         cin>>D7;
+        if (D7==7)
+            D7=0;
         cin>>Hour;
         //--------------call the methode here-------------------
         Lyon->STATS_D7_H24(D7,Hour);
@@ -89,6 +89,9 @@ int main(void)
         #endif
 
           cin>>D7;
+          //attention dimanche doit etre le 1er jour
+          if (D7==7)
+              D7=0;
           //--------------call the methode here---------------
 
           (*Lyon).STATS_D7(D7);
@@ -138,7 +141,7 @@ int main(void)
 
             time=mktime(&date);
 
-        (*Lyon).AddState(time ,D7, Id, Value,Hour,Minute);
+        (*Lyon).AddState(time , Id, Value);
 
 
         // Clear the command
