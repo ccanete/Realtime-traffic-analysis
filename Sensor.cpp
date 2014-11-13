@@ -70,18 +70,27 @@ Sensor* Sensor::GetNext()
 
 }
 
- void Sensor::SensorUpdate(time_t currentTime, int state)
+ float* Sensor::SensorUpdate(time_t currentTime, int state)
  {
+     //the value we need to return
+     float *BeingActived =new float[3];
      // updating traffic[4]
     if (difftime(currentTime,lastTime)<300){
           traffic[lastState]=+difftime(currentTime,lastTime);
+          BeingActived[0]=difftime(currentTime,lastTime);
         }
     else {
           traffic[lastState]=+300;
+          BeingActived[0]=300;
     }
+    //stocking laststate and lasttime
+    BeingActived[1]=lastState;
+    BeingActived[2]=lastTime;
+
     //updating lastTime and lastState
-      lastState=currentTime;
+      lastTime=currentTime;
       lastState=state;
+      return BeingActived;
 
  }
 
@@ -137,4 +146,3 @@ Sensor::~Sensor ( )
 //----------------------------------------------------- M�thodes prot�g�es
 
 //------------------------------------------------------- M�thodes priv�es
-

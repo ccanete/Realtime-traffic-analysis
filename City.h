@@ -27,7 +27,7 @@ class City
 public:
 //----------------------------------------------------- Méthodes publiques
 
-    void AddState(time_t time, int day, int id, char Value);
+    void AddState(time_t time, int day, int id, char Value,int hour,int minute);
 
     void STATS_D7_H24(int day,int hour);
 
@@ -80,6 +80,7 @@ private:
 
     int sensorStateToInt (char Value);
 
+    void sensorStateUpdate(float* timeActivate);
 
 protected:
 //----------------------------------------------------- Attributs protégés
@@ -118,4 +119,3 @@ private:
 //----------------------------------------- Types dépendants de <City>
 
 #endif // XXX_H
-
