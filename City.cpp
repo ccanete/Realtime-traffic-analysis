@@ -18,9 +18,14 @@ using namespace std;
 
 //----------------------------------------------------- Méthodes publiques
 
- void City::STATS_D7_H24(int day,int hour){
+ void City::STATS_D7_H24(int day, int hour){
      int stats[4];
-     int sum=sensorsState[day-1][hour][0]+sensorsState[day-1][hour][1]+sensorsState[day-1][hour][2]+sensorsState[day-1][hour][3];
+     int sum;
+     
+     for (int i=0;i<4;i++)
+     {
+		 sum = sensorsState[day-1][hour][i];
+	 }
     //day-1 becauseday=[1:7]
 
      stats[0]=sensorsState[day-1][hour][0];

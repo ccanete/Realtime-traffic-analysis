@@ -116,6 +116,9 @@ int main(void)
            cin>>Seconde;
            cin>>D7;
            cin>>Value;
+          #ifdef MAP
+          cout<< "I passed" << endl;
+          #endif
 
           #ifdef MAP
           cout<< "Id : "<<Id<<", Year : "<<Year<<", Month : "<<Month<<", Day : "<<Day<<", Hour : "<<Hour<<", Minute : "<<Minute<<", Seconde : "<<Seconde<<", D7 : "<<D7<<", Value : "<<Value<<endl;
