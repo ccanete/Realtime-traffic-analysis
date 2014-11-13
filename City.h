@@ -28,37 +28,44 @@ public:
 //----------------------------------------------------- Méthodes publiques
 
     void AddState(time_t time, int id, char Value);
+    // ADdState add a sensor object to the sensors array list if it still does not exist, update its state if it exists and update the statistics
 
     void STATS_D7_H24(int day,int hour);
+    // STATS_D7_H24 displays the statistic of all the sensors for one hour on one day in the week (ex: what is the traffic the mondays at 14:00) with this syntax:
+    //
+    //	V <value>%
+    //	J <value>%
+    //	R <value>%
+    //	N <value>%
+    //
 
     void STATS_D7(int day);
+    // STATS_D7_H24 displays the statistic of all the sensors for one day in the week (ex: what is the traffic the mondays) with this syntax:
+    //
+    //	V <value>%
+    //	J <value>%
+    //	R <value>%
+    //	N <value>%
+    //
+    // @params : int day : 1:7 (1:monday..7:sunday), the day the user wants to display the stats.
 
     void Max_TS();
+    // Max_TS displays the moment with the worse traffic reccord. It displays the date of the beginning of this state with this synthax:
+    //
+    //	<YYYY> <MM> <DD> <H> <M> <S> <value>%
+    //
 
     void Stats_C(int ID);
-
-
-
-//------------------------------------------------- Surcharge d'opérateurs
-    City & operator = ( const City & unCity );
-    // Mode d'emploi :
+    // Stats_C 
     //
-    // Contrat :
-    //
-
 
 //-------------------------------------------- Constructeurs - destructeur
-    City ( const City & unCity );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
 
     City ( );
-    // Mode d'emploi :
+    // Manual :
+    // 
     //
-    // Contrat :
-    //
+
 
     virtual ~City ( );
     // Mode d'emploi :
