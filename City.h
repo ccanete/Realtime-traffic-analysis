@@ -88,7 +88,7 @@ private:
     //transform value char to a corresponding int
     //v->0    J->1    R->2    N->3
 
-    void sensorStateUpdate(Sensor cur, time_t actualTime);
+    void sensorStateUpdate(Sensor cur, time_t actualTime, time_t oldTime);
     //fill the tab with day hour and value with time spend actived for each Sensor
 
     int modifyDay(int value);

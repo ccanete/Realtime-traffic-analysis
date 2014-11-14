@@ -110,10 +110,25 @@ void City::AddState(time_t time, int id, char value)
 
     }
 
-    if ((*cur).LastState!=-1)
-    {
-        sensorStateUpdate(*cur, time);
-    }
+    if (howManySensors>1) //we can not enter the loop if there is no objects
+     {
+         Sensor* curUpdate = (*listSensors).NextSensor;
+         do
+         {
+            if((*curUpdate).LastState!=-1) //we don't use the sensor that is updating
+            {
+                sensorStateUpdate(*curUpdate, time, timeLastInsert);
+            }
+            curUpdate=(*curUpdate).NextSensor;
+
+
+        }while((*curUpdate).NextSensor!=NULL);
+        //we need to update the last element of the loop:
+        if((*curUpdate).LastState!=-1)
+        {
+            sensorStateUpdate(*curUpdate, time, timeLastInsert);
+        }
+     }
 
     (*cur).SensorUpdate(time, sensorStateToInt(value));
 
@@ -289,70 +304,75 @@ void City :: updateTraffic(time_t time)
 
 
 }
-void City::sensorStateUpdate(Sensor cur, time_t actualTime){
+void City::sensorStateUpdate(Sensor cur, time_t actualTime, time_t oldTime){
 
-    //transforming theLastTime of the current sensor into a struct tm
     struct tm lastAdd;
-    time_t temps=cur.LastTime;
-    lastAdd=*localtime(&temps);
-
-    //stocking the corresponding hour/day/minute/seconde of the LastTime
+    lastAdd=*localtime(&oldTime); //create structure of the last creation date
     int hour=lastAdd.tm_hour;
     int day=modifyDay(lastAdd.tm_wday);
     int minute=lastAdd.tm_min;
     int seconde=lastAdd.tm_sec;
-
-    //calculing the time spend actived by the sensor
-    float timeActiv = difftime(actualTime, temps);
+    float timeActiv = difftime(actualTime, oldTime);
 
     #ifdef MAP
-    cout<< "Date d'ajout : " << ctime(&temps) << "\r\n";
+    cout<< cur.GetId()<<endl;
+    cout<< "Date d'ajout : " << ctime(&actualTime) << "\r\n";
     cout<< "temps : "<< timeActiv << "\r\n";
-    cout << difftime(actualTime, temps) << "\r\n";
     #endif
-    // treatement when time spend actived can be between 2 days/2hours
-    if (minute<55){
-        sensorsState[day][hour][cur.LastState]+=timeActiv;
-        #ifdef MAP
-        cout<< "Temps ajoute : " << timeActiv << "\r\n";
-        #endif
 
-    }
 
-    else{
-        if(hour!=23){
-            //case time spend actived between two hours
-            if(seconde+minute*60+timeActiv>3600){
-                sensorsState[day][hour][cur.LastState]+=3600-seconde-minute*60;
-                sensorsState[day][hour+1][cur.LastState]+=seconde+minute*60+timeActiv-3600;
-            }
-            //case time spend actived only over one hour
-            else{
-                sensorsState[day][hour][cur.LastState]+=timeActiv;
-            }
-        }
-        //case time spend actived between two days
-        else{
-            //case time spend actived between two hours
-            if(seconde+minute*60+timeActiv>3600){
-                //if the day is not saturday
-            if (day!=6){
-                sensorsState[day][hour][cur.LastState]+=3600-seconde-minute*60;
-                sensorsState[day+1][0][cur.LastState]+=seconde+minute*60+timeActiv-3600;
-            }
-            //if the day is saturday
-            else{
-                sensorsState[day][hour][cur.LastState]+=3600-seconde-minute*60;
-                sensorsState[0][0][cur.LastState]+=seconde+minute*60+timeActiv-3600;
-            }
-            }
-        //case time spend actived only over one hour
-        else{
-            sensorsState[day][hour][cur.LastState]+=timeActiv;
-        }
-        }
-    }
 
+if (minute<55){
+sensorsState[day][hour][cur.LastState]+=timeActiv;
+#ifdef MAP
+cout<< "Temps ajoute : " << timeActiv << "\r\n";
+#endif
+
+}
+
+else{
+
+
+
+if(hour!=23){
+//case between two hours
+if(seconde+minute*60+timeActiv>3600)
+{
+sensorsState[day][hour][cur.LastState]+=3600-seconde-minute*60;
+sensorsState[day][hour+1][cur.LastState]+=seconde+minute*60+timeActiv-3600;
+}
+//case only over one hour
+else
+{
+sensorsState[day][hour][cur.LastState]+=timeActiv;
+}
+
+}
+//bewteen two days
+else
+{
+//case between two hours
+if(seconde+minute*60+timeActiv>3600)
+{
+//not sunday
+if (day!=6)
+{
+sensorsState[day][hour][cur.LastState]+=3600-seconde-minute*60;
+sensorsState[day+1][0][cur.LastState]+=seconde+minute*60+timeActiv-3600;
+}
+//case sunday
+else{
+sensorsState[day][hour][cur.LastState]+=3600-seconde-minute*60;
+sensorsState[0][0][cur.LastState]+=seconde+minute*60+timeActiv-3600;
+}
+}
+//case only over one hour
+else{
+sensorsState[day][hour][cur.LastState]+=timeActiv;
+}
+
+}
+}
 }
 
 int City :: modifyDay(int value)
