@@ -138,7 +138,7 @@ void City::AddState(time_t time, int id, char value)
 }
 
 void City :: Max_Ts(){
-    if(howManySensors!=0)
+    if(maximumValues!=0)
     {
         struct tm traficStruct; //structure tm
         traficStruct=*localtime(&trafficTime); //create structure of the trafic date
