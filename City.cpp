@@ -2,7 +2,7 @@
 /*************************************************************************
                            City  -  description
                              -------------------
-    dÃ©but                : ${date}
+    debut                : ${date}
     copyright            : (C) ${year} par ${user}
 *************************************************************************/
 
@@ -134,7 +134,7 @@ void City::AddState(time_t time, int id, char value)
 
     updateTraffic(time);
 
-    //delete timeActivate;
+    timeLastInsert = time;
 }
 
 void City :: Max_Ts(){
@@ -322,57 +322,57 @@ void City::sensorStateUpdate(Sensor cur, time_t actualTime, time_t oldTime){
 
 
 
-if (minute<55){
-sensorsState[day][hour][cur.LastState]+=timeActiv;
-#ifdef MAP
-cout<< "Temps ajoute : " << timeActiv << "\r\n";
-#endif
+    if (minute<55){
+    sensorsState[day][hour][cur.LastState]+=timeActiv;
+    #ifdef MAP
+    cout<< "Temps ajoute : " << timeActiv << "\r\n";
+    #endif
 
-}
+    }
 
-else{
+    else{
 
 
 
-if(hour!=23){
-//case between two hours
-if(seconde+minute*60+timeActiv>3600)
-{
-sensorsState[day][hour][cur.LastState]+=3600-seconde-minute*60;
-sensorsState[day][hour+1][cur.LastState]+=seconde+minute*60+timeActiv-3600;
-}
-//case only over one hour
-else
-{
-sensorsState[day][hour][cur.LastState]+=timeActiv;
-}
+        if(hour!=23){
+        //case between two hours
+            if(seconde+minute*60+timeActiv>3600)
+            {
+                sensorsState[day][hour][cur.LastState]+=3600-seconde-minute*60;
+                sensorsState[day][hour+1][cur.LastState]+=seconde+minute*60+timeActiv-3600;
+            }
+            //case only over one hour
+            else
+            {
+                sensorsState[day][hour][cur.LastState]+=timeActiv;
+            }
 
-}
-//bewteen two days
-else
-{
-//case between two hours
-if(seconde+minute*60+timeActiv>3600)
-{
-//not sunday
-if (day!=6)
-{
-sensorsState[day][hour][cur.LastState]+=3600-seconde-minute*60;
-sensorsState[day+1][0][cur.LastState]+=seconde+minute*60+timeActiv-3600;
-}
-//case sunday
-else{
-sensorsState[day][hour][cur.LastState]+=3600-seconde-minute*60;
-sensorsState[0][0][cur.LastState]+=seconde+minute*60+timeActiv-3600;
-}
-}
-//case only over one hour
-else{
-sensorsState[day][hour][cur.LastState]+=timeActiv;
-}
+        }
+        //bewteen two days
+        else
+        {
+            //case between two hours
+            if(seconde+minute*60+timeActiv>3600)
+            {
+                //not sunday
+                if (day!=6)
+                {
+                    sensorsState[day][hour][cur.LastState]+=3600-seconde-minute*60;
+                    sensorsState[day+1][0][cur.LastState]+=seconde+minute*60+timeActiv-3600;
+                }
+                //case sunday
+                else{
+                    sensorsState[day][hour][cur.LastState]+=3600-seconde-minute*60;
+                    sensorsState[0][0][cur.LastState]+=seconde+minute*60+timeActiv-3600;
+                }
+            }
+            //case only over one hour
+            else{
+                sensorsState[day][hour][cur.LastState]+=timeActiv;
+            }
 
-}
-}
+        }
+    }
 }
 
 int City :: modifyDay(int value)
