@@ -27,11 +27,11 @@ class City
 public:
 //----------------------------------------------------- Méthodes publiques
 
-    void AddState(time_t time, int id, char Value);
+    void AddState(time_t time, int id, char value);
     // ADdState add a sensor object to the sensors array list if it still does not exist, update its state if it exists and update the statistics
 
-    void STATS_D7_H24(int day,int hour);
-    // STATS_D7_H24 displays the statistic of all the sensors for one hour on one day in the week (ex: what is the traffic the mondays at 14:00) with this syntax:
+    void Stats_D7_H24(int day,int hour);
+    // Stats_D7_H24 displays the statistic of all the sensors for one hour on one day in the week (ex: what is the traffic the mondays at 14:00) with this syntax:
     //
     //	V <value>%
     //	J <value>%
@@ -39,8 +39,8 @@ public:
     //	N <value>%
     //
 
-    void STATS_D7(int day);
-    // STATS_D7_H24 displays the statistic of all the sensors for one day in the week (ex: what is the traffic the mondays) with this syntax:
+    void Stats_D7(int day);
+    // Stats_D7_H24 displays the statistic of all the sensors for one day in the week (ex: what is the traffic the mondays) with this syntax:
     //
     //	V <value>%
     //	J <value>%
@@ -49,13 +49,13 @@ public:
     //
     // @params : int day : 1:7 (1:monday..7:sunday), the day the user wants to display the stats.
 
-    void Max_TS();
-    // Max_TS displays the moment with the worse traffic reccord. It displays the date of the beginning of this state with this synthax:
+    void Max_Ts();
+    // Max_Ts displays the moment with the worse traffic reccord. It displays the date of the beginning of this state with this synthax:
     //
     //	<YYYY> <MM> <DD> <H> <M> <S> <value>%
     //
 
-    void Stats_C(int ID);
+    void Stats_C(int id);
     // Stats_C
     //
 
@@ -68,10 +68,7 @@ public:
 
 
     virtual ~City ( );
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    //Destructor wich delete all the sensors of the city
 
 //------------------------------------------------------------------ PRIVE
 
@@ -82,14 +79,20 @@ private:
 //------------------------------------------------------- Méthodes privées
 
     void updateTraffic(time_t time);
+    //calcul and stock the moment and the number of sensors corresponding to Max_Ts
 
-    bool isThereTraffic (int Value);
+    bool isThereTraffic (int value);
+    //return true if value is R or N
 
-    int sensorStateToInt (char Value);
+    int sensorStateToInt (char value);
+    //transform value char to a corresponding int
+    //v->0    J->1    R->2    N->3
 
     void sensorStateUpdate(Sensor cur, time_t actualTime);
+    //fill the tab with day hour and value with time spend actived for each Sensor
 
-    int modifyDay(int Value);
+    int modifyDay(int value);
+    //return the indice of the day in the bristish system
 
 protected:
 //----------------------------------------------------- Attributs protégés

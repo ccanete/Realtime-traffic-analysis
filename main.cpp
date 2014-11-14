@@ -15,144 +15,142 @@ int main(void)
     City* Lyon = new City();
 
     //String to stock commands entered by users
-    string Command;
+    string command;
 
     //stock int in order to give as argument to method
-    int Id;
-    int Year;
-    int Month;
-    int Day;
-    int Hour;
-    int Minute;
-    int Seconde;
-    char Value;
-    int D7;
+    int id;
+    int year;
+    int month;
+    int day;
+    int hour;
+    int minute;
+    int seconde;
+    char value;
+    int d7;
 
     //time structure
     time_t time;
     struct tm date;
 
     // get commands entered by users
-    cin>>Command;
+    cin>>command;
 
-    while (Command.compare("EXIT")!=0) {
+    while (command.compare("EXIT")!=0) {
 
         #ifdef MAP
         //cout<< "nouveau depart boucle" << "\r\n";
-        //cout<< "la commande entree est : " << Command << "\r\n";
+        //cout<< "la commande entree est : " << command << "\r\n";
         #endif
 
-      if (Command.compare("STATS_C")==0) {
+      if (command.compare("STATS_C")==0) {
 
         #ifdef MAP
         //cout<< "Appel a la commande STATS_C" << "\r\n";
         #endif
 
-        cin>>Id;
+        cin>>id;
 
         //Function called
-        Lyon->Stats_C(Id);
+        Lyon->Stats_C(id);
 
         //trace
         #ifdef MAP
-            cout<<Id<<"\r\n";
+            cout<<id<<"\r\n";
         #endif
 
         // Clear the command
-        Command="";
+        command="";
 
-     } else if (Command.compare("STATS_D7_H24")==0) {
+     } else if (command.compare("STATS_D7_H24")==0) {
 
         #ifdef MAP
-        //cout<< "Appel a la commande STATS_D7_H24" << "\r\n";
+        //cout<< "Appel a la commande Stats_D7_H24" << "\r\n";
         #endif
 
-        cin>>D7;
-        if (D7==7)
-            D7=0;
-        cin>>Hour;
+        cin>>d7;
+        cin>>hour;
         //--------------call the methode here-------------------
-        Lyon->STATS_D7_H24(D7,Hour);
+        Lyon->Stats_D7_H24(d7,hour);
         //trace
         #ifdef MAP
-        cout<<D7<<"\r\n";
-        cout<<Hour<<"\r\n";
+        cout<<d7<<"\r\n";
+        cout<<hour<<"\r\n";
         #endif
 
         // Clear the command
-        Command="";
+        command="";
 
-      } else if (Command.compare("STATS_D7")==0) {
+      } else if (command.compare("STATS_D7")==0) {
 
         #ifdef MAP
-        //cout<< "Appel a la commande STATS_D7" << "\r\n";
+        //cout<< "Appel a la commande Stats_D7" << "\r\n";
         #endif
 
-          cin>>D7;
+          cin>>d7;
           //--------------call the methode here---------------
 
-          (*Lyon).STATS_D7(D7);
+          (*Lyon).Stats_D7(d7);
           //trace
           #ifdef MAP
-          cout<<D7<<"\r\n";
+          cout<<d7<<"\r\n";
           #endif
 
         // Clear the command
-        Command="";
+        command="";
       }
-      else if (Command.compare("ADD")==0) {
+      else if (command.compare("ADD")==0) {
 
           #ifdef MAP
           //cout<< "Appel a la commande ADD" << "\r\n";
           #endif
 
           // stock into int
-           cin>>Id;
-           cin>>Year;
-           cin>>Month;
-           cin>>Day;
-           cin>>Hour;
-           cin>>Minute;
-           cin>>Seconde;
-           cin>>D7;
-           cin>>Value;
+           cin>>id;
+           cin>>year;
+           cin>>month;
+           cin>>day;
+           cin>>hour;
+           cin>>minute;
+           cin>>seconde;
+           cin>>d7;
+           cin>>value;
 
           #ifdef MAP
-          //cout<< "Id : "<<Id<<", Year : "<<Year<<", Month : "<<Month<<", Day : "<<Day<<", Hour : "<<Hour<<", Minute : "<<Minute<<", Seconde : "<<Seconde<<", D7 : "<<D7<<", Value : "<<Value<<"\r\n";
+          //cout<< "id : "<<id<<", year : "<<year<<", month : "<<month<<", day : "<<day<<", hour : "<<hour<<", minute : "<<minute<<", seconde : "<<seconde<<", d7 : "<<d7<<", value : "<<value<<"\r\n";
           #endif
 
 
         // ----------------------------call the addMethode here----------------------------
-        //time=castTime(Year, Month, Day, Hour, Minute, Seconde);
+        //time=castTime(year, month, day, hour, minute, seconde);
 
-            date.tm_year=Year - 1900;
-            date.tm_mon=Month -1; // cause january = 0
-            date.tm_mday=Day;
-            date.tm_hour=Hour;
-            date.tm_min=Minute;
-            date.tm_sec=Seconde;
+            date.tm_year=year - 1900;
+            date.tm_mon=month -1; // cause january = 0
+            date.tm_mday=day;
+            date.tm_hour=hour;
+            date.tm_min=minute;
+            date.tm_sec=seconde;
             date.tm_isdst=-1;
 
             time=mktime(&date);
 
-        (*Lyon).AddState(time , Id, Value);
+        (*Lyon).AddState(time , id, value);
 
 
         // Clear the command
-        Command="";
+        command="";
 
             }
-      else if (Command.compare("MAX_TS")==0) {
+      else if (command.compare("MAX_TS")==0) {
 
         #ifdef MAP
-        //cout<< "Appel a la commande MAX_TS" << "\r\n";
+        //cout<< "Appel a la commande Max_Ts" << "\r\n";
         #endif
 
 
-        (*Lyon).Max_TS();
+        (*Lyon).Max_Ts();
 
         // Clear the command
-        Command="";
+        command="";
 
             }
 
@@ -160,7 +158,7 @@ int main(void)
         //cout<< "attente d'une nouvelle consigne" << "\r\n";
         #endif
         // wait for a new command
-        cin>>Command;
+        cin>>command;
    }
 
     delete Lyon;

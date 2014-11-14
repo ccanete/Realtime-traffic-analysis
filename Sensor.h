@@ -27,27 +27,30 @@ class Sensor
 
 public:
 
-Sensor *  nextSensor;
-int lastState;
-time_t lastTime;//date of the last add(seconde)
+    Sensor *  NextSensor;
+    //pointer to the next sensor in the list of City
+    int LastState;
+    //State corresponding to the last add
+    time_t LastTime;
+    //date of the last add(seconde)
 
 
 
 //----------------------------------------------------- M�thodes publiques
-void StatsIdSensor();
-    // Mode d'emploi :
-    //
-    // Contrat :return the sensors stats in a string
-    //
+    void StatsIdSensor();
+    // Display the current sensor's stats
 
-void SensorUpdate(time_t time,int state);
-    //Mode d'emploi : update tab traffic[4] and lastTime
-Sensor* GetNext();// send next sensor
-int GetId();// send the id of a sensor
-void Add(Sensor theOneToAdd);// to add a sensor if there is no next
+    void SensorUpdate(time_t time,int state);
+    //adding the actived time by the current sensor in traffic[4] and updating LastTime
+
+    int GetId();
+    // return the Id of the current Sensor
+
+    void Add(Sensor theOneToAdd);
+    // Add a new Sensor after the current Sensor
 
 //------------------------------------------------- Surcharge d'op�rateurs
-  //  ${file_base} & operator = ( const ${file_base} & un${file_base} );
+    //  ${file_base} & operator = ( const ${file_base} & un${file_base} );
     // Mode d'emploi :
     //
     // Contrat :
@@ -55,29 +58,15 @@ void Add(Sensor theOneToAdd);// to add a sensor if there is no next
 
 
 //-------------------------------------------- Constructeurs - destructeur
-    //Sensor( const Sensor  & unSensor );
-    // Mode d'emploi (constructeur de copie) :
-    //
-    // Contrat :
-    //
 
-    Sensor(); //contructeur par defautmake
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    Sensor();
+    //default constructor
 
-    Sensor(int Id);
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    Sensor(int id);
+    //constructor using the new Id
 
     virtual ~Sensor();
-    // Mode d'emploi :
-    //
-    // Contrat :
-    //
+    // destructor
 
 //------------------------------------------------------------------ PRIVE
 
@@ -92,8 +81,11 @@ protected:
 
 private:
 //------------------------------------------------------- Attributs priv�s
-float traffic [4];// time passed in each state
-int idSensor;
+    float traffic [4];
+    //time passed in each of the four state
+
+    int idSensor;
+    //Id identifing the Sensor
 //---------------------------------------------------------- Classes amies
 
 //-------------------------------------------------------- Classes priv�es

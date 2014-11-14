@@ -31,7 +31,7 @@ using namespace std;
 //----------------------------------------------------------------- PUBLIC
 //-------------------------------------------------------- Fonctions amies
 
-//----------------------------------------------------- M�thodes publiques
+//----------------------------------------------------- Methodes publiques
 
 int Sensor::GetId(){
     return   idSensor;
@@ -39,17 +39,17 @@ int Sensor::GetId(){
 
 
 void Sensor::Add(Sensor theOneToAdd){
-    nextSensor=&theOneToAdd;
+    NextSensor=&theOneToAdd;
 }
 
 
 
 
 void Sensor::StatsIdSensor()
-// Algorithme :
+// Display the current sensor's stats
 {
     // calculing percentage in a tab
-    float tab[4];//!!!! a changer car on ne peut renvoyer un tab qui se supprime a la fin de la methode
+    float tab[4];
     float somme = traffic[0]+  traffic[1]+  traffic[2]+  traffic[3];
     tab[0]=100*(traffic[0]/somme);
     tab[1]=100*(traffic[1]/somme);
@@ -62,33 +62,32 @@ void Sensor::StatsIdSensor()
     cout<<"R "<<(int)tab[2]<<"%"<<"\r\n";
     cout<<"N "<<(int)tab[3]<<"%"<<"\r\n";
 
-} //----- Fin de Methode
+} //----- End of the Method
 
-Sensor* Sensor::GetNext()
-{
 
-    return   nextSensor;
-
-}
 
  void Sensor::SensorUpdate(time_t currentTime, int state)
+ //adding the actived time by the current sensor in traffic[4] and updating LastTime
  {
-    if(currentTime<lastTime)
+    //testing if currentTime is bigger in order not to have a negative number
+    if(currentTime<LastTime)
     {
         #ifdef MAP
-        cout << "ATTENTION ERREUR" << "\r\n";
+        cout << "ERROR" << "\r\n";
         #endif
     }
-    if (difftime(currentTime,lastTime)<300)
+    //if the sensor is still activated
+    if (difftime(currentTime,LastTime)<300)
     {
-      traffic[lastState]+=difftime(currentTime,lastTime);
+        traffic[LastState]+=difftime(currentTime,LastTime);
     }
+    //if the sensor has no add since 5 minutes
     else {
-          traffic[lastState]+=300;
+        traffic[LastState]+=300;
     }
-    //updating lastTime and lastState
-      lastTime=currentTime;
-      lastState=state;
+    //updating LastTime and LastState
+      LastTime=currentTime;
+      LastState=state;
 
  }
 
@@ -98,46 +97,42 @@ Sensor* Sensor::GetNext()
 //-------------------------------------------- Constructeurs - destructeur
 
 Sensor::Sensor ()
-//Alorithme :
+//Default constructor
 {
     #ifdef MAP
     //cout << "Appel au constructeur de Sensor par default" << "\r\n";
     #endif
 
-    nextSensor=NULL;
-    lastState=-1;
+    NextSensor=NULL;
+    LastState=-1;
 }
 
-Sensor::Sensor(int Id)
-// Algorithme :
-//
+Sensor::Sensor(int id)
+//constructor using the new Id
 {
 #ifdef MAP
-    //cout << "Appel au constructeur de <${file_base}>" << "\r\n";
+cout << "Appel au constructeur "<< "\r\n";
 #endif
-      idSensor=Id;
+      idSensor=id;
       //Sensor * sensorTemp = new Sensor();
-      //nextSensor=sensorTemp;
-      nextSensor=NULL;
+      //NextSensor=sensorTemp;
+      NextSensor=NULL;
       traffic[0]=0;
       traffic[1]=0;
       traffic[2]=0;
       traffic[3]=0;
       //to avoid a problem at the first add
-      lastState=-1;
-      lastTime=0;
-} //----- Fin de ${file_base}
+      LastState=-1;
+      LastTime=0;
+} //----- End of constructor
 
 
 Sensor::~Sensor ( )
-// Algorithme :
-//
 {
-
-#ifdef MAP
+    #ifdef MAP
     //cout << "Appel au destructeur de <${file_base}>" << "\r\n";
-#endif
-} //----- Fin de ~${file_base}
+    #endif
+} //----- End of Destructor
 
 
 //------------------------------------------------------------------ PRIVE
