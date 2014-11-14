@@ -56,14 +56,14 @@ public:
     //
 
     void Stats_C(int ID);
-    // Stats_C 
+    // Stats_C
     //
 
 //-------------------------------------------- Constructeurs - destructeur
 
     City ( );
     // Manual :
-    // 
+    //
     //
 
 
@@ -88,7 +88,7 @@ private:
     int sensorStateToInt (char Value);
 
     void sensorStateUpdate(Sensor cur, time_t actualTime);
-    
+
     int modifyDay(int Value);
 
 protected:

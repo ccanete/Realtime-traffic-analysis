@@ -75,13 +75,13 @@ Sensor* Sensor::GetNext()
  {
     if(currentTime<lastTime)
     {
-		#ifdef MAP
-		cout << "ATTENTION ERREUR" << endl;
-		#endif
-	}
+        #ifdef MAP
+        cout << "ATTENTION ERREUR" << "\r\n";
+        #endif
+    }
     if (difftime(currentTime,lastTime)<300)
     {
-	  traffic[lastState]+=difftime(currentTime,lastTime);
+      traffic[lastState]+=difftime(currentTime,lastTime);
     }
     else {
           traffic[lastState]+=300;

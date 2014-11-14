@@ -19,8 +19,8 @@ using namespace std;
 //----------------------------------------------------- Methodes publiques
 
  void City::STATS_D7_H24(int day, int hour){
-	 
-	 day=modifyDay(day);
+
+     day=modifyDay(day);
      float stats[4];
      stats[0]=0;
      stats[1]=0;
@@ -28,12 +28,12 @@ using namespace std;
      stats[3]=0;
      float sum;
 
-     
-	stats[0]+=sensorsState[day][hour][0];
-	stats[1]+=sensorsState[day][hour][1];
-	stats[2]+=sensorsState[day][hour][2];
-	stats[3]+=sensorsState[day][hour][3];
-     
+
+    stats[0]+=sensorsState[day][hour][0];
+    stats[1]+=sensorsState[day][hour][1];
+    stats[2]+=sensorsState[day][hour][2];
+    stats[3]+=sensorsState[day][hour][3];
+
      sum= stats[0]+stats[1]+ stats[2]+ stats[3];
      if (sum!=0){
      stats[0]=(stats[0]/sum)*100;
@@ -46,14 +46,14 @@ using namespace std;
      cout<<"J "<<(int)(stats[1])<<"%"<<"\r\n";
      cout<<"R "<<(int)(stats[2])<<"%"<<"\r\n";
      cout<<"N "<<(int)(stats[3])<<"%"<<"\r\n";
-     cout<<"SUM "<<sum<<"\r\n";
+     //cout<<"SUM "<<sum<<"\r\n";
 
-     
+
  }
 
  void City::STATS_D7(int day){
 
-	 day=modifyDay(day);
+     day=modifyDay(day);
      float stats[4];
      stats[0]=0;
      stats[1]=0;
@@ -109,23 +109,37 @@ void City::AddState(time_t time, int id, char Value)
         howManySensors++;
 
     }
-    
+
     if ((*cur).lastState!=-1)
     {
-		sensorStateUpdate(*cur, time);
-	}
-	
-	(*cur).SensorUpdate(time, sensorStateToInt(Value));
-	
+        sensorStateUpdate(*cur, time);
+    }
+
+    (*cur).SensorUpdate(time, sensorStateToInt(Value));
+
     updateTraffic(time);
 
     //delete timeActivate;
 }
 
 void City :: Max_TS(){
-    cout << howManySensors << " ont été enregistrés" << "\r\n";
-    cout << "The max trafic was : "<<(int)(100*(maximumValues/howManySensors))<<" %."<<"\r\n";
-    cout << "It was at : "<< ctime(&trafficTime)<<"\r\n";
+    if(howManySensors!=0)
+    {
+        struct tm traficStruct; //structure tm
+        traficStruct=*localtime(&trafficTime); //create structure of the trafic date
+        int year=traficStruct.tm_year+1900;
+        int month=traficStruct.tm_mon+1;
+        int hour=traficStruct.tm_hour;
+        int day=traficStruct.tm_mday;
+        int minute=traficStruct.tm_min;
+        int seconde=traficStruct.tm_sec;
+
+        //	<YYYY> <MM> <DD> <H> <M> <S> <value>%
+        cout<<year<<" "<<month<<" "<<day<<" "<<hour<<" "<<minute<<" "<<seconde<<" "<<(int)(100*(maximumValues/howManySensors))<<"%"<<"\r\n";
+    }
+    else{
+        cout<<0<<" "<<0<<" "<<0<<" "<<0<<" "<<0<<" "<<0<<" "<<0<<"%"<<"\r\n";
+    }
 }
 
 void City :: Stats_C(int ID){
@@ -137,8 +151,15 @@ void City :: Stats_C(int ID){
     }
     if((*cur).GetId()==ID)
     {
-		(*cur).StatsIdSensor();
-	}
+        (*cur).StatsIdSensor();
+    }
+    else{
+        // to display stats of this sensor
+        cout<<"V "<<0<<"%"<<"\r\n";
+        cout<<"J "<<0<<"%"<<"\r\n";
+        cout<<"R "<<0<<"%"<<"\r\n";
+        cout<<"N "<<0<<"%"<<"\r\n";
+    }
 }
 
 
@@ -277,19 +298,19 @@ void City::sensorStateUpdate(Sensor cur, time_t actualTime){
     int minute=lastAdd.tm_min;
     int seconde=lastAdd.tm_sec;
     float timeActiv = difftime(actualTime, temps);
-    
+
     #ifdef MAP
-    cout<< "Date d'ajout : " << ctime(&temps) << endl;
-    cout<< "temps : "<< timeActiv << endl;
-    cout << difftime(actualTime, temps) << endl;    
+    cout<< "Date d'ajout : " << ctime(&temps) << "\r\n";
+    cout<< "temps : "<< timeActiv << "\r\n";
+    cout << difftime(actualTime, temps) << "\r\n";
     #endif
 
-    
+
 
 if (minute<55){
     sensorsState[day][hour][cur.lastState]+=timeActiv;
     #ifdef MAP
-    cout<< "Temps ajoute : " << timeActiv << endl;
+    cout<< "Temps ajoute : " << timeActiv << "\r\n";
     #endif
 
 }
@@ -299,7 +320,7 @@ else{
 
 
     if(hour!=23){
-		//case between two hours
+        //case between two hours
         if(seconde+minute*60+timeActiv>3600)
         {
             sensorsState[day][hour][cur.lastState]+=3600-seconde-minute*60;
@@ -312,13 +333,13 @@ else{
         }
 
     }
-	//bewteen two days
+    //bewteen two days
     else
     {
-		//case between two hours
+        //case between two hours
         if(seconde+minute*60+timeActiv>3600)
         {
-			//not sunday
+            //not sunday
             if (day!=6)
             {
                 sensorsState[day][hour][cur.lastState]+=3600-seconde-minute*60;
@@ -342,11 +363,11 @@ else{
 
 int City :: modifyDay(int Value)
 {
-	switch (Value)
+    switch (Value)
         {
         case 7:
             return 0;
-            break;            
+            break;
         default:
             return Value;
         }
