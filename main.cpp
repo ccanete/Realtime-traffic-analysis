@@ -38,14 +38,14 @@ int main(void)
     while (Command.compare("EXIT")!=0) {
 
         #ifdef MAP
-        cout<< "nouveau depart boucle" << endl;
-        cout<< "la commande entree est : " << Command << endl;
+        //cout<< "nouveau depart boucle" << "\r\n";
+        //cout<< "la commande entree est : " << Command << "\r\n";
         #endif
 
       if (Command.compare("STATS_C")==0) {
 
         #ifdef MAP
-        cout<< "Appel a la commande STATS_C" << endl;
+        //cout<< "Appel a la commande STATS_C" << "\r\n";
         #endif
 
         cin>>Id;
@@ -55,7 +55,7 @@ int main(void)
 
         //trace
         #ifdef MAP
-            cout<<Id<<endl;
+            cout<<Id<<"\r\n";
         #endif
 
         // Clear the command
@@ -64,7 +64,7 @@ int main(void)
      } else if (Command.compare("STATS_D7_H24")==0) {
 
         #ifdef MAP
-        cout<< "Appel a la commande STATS_D7_H24" << endl;
+        //cout<< "Appel a la commande STATS_D7_H24" << "\r\n";
         #endif
 
         cin>>D7;
@@ -75,8 +75,8 @@ int main(void)
         Lyon->STATS_D7_H24(D7,Hour);
         //trace
         #ifdef MAP
-        cout<<D7<<endl;
-        cout<<Hour<<endl;
+        cout<<D7<<"\r\n";
+        cout<<Hour<<"\r\n";
         #endif
 
         // Clear the command
@@ -85,19 +85,16 @@ int main(void)
       } else if (Command.compare("STATS_D7")==0) {
 
         #ifdef MAP
-        cout<< "Appel a la commande STATS_D7" << endl;
+        //cout<< "Appel a la commande STATS_D7" << "\r\n";
         #endif
 
           cin>>D7;
-          //attention dimanche doit etre le 1er jour
-          if (D7==7)
-              D7=0;
           //--------------call the methode here---------------
 
           (*Lyon).STATS_D7(D7);
           //trace
           #ifdef MAP
-          cout<<D7<<endl;
+          cout<<D7<<"\r\n";
           #endif
 
         // Clear the command
@@ -106,7 +103,7 @@ int main(void)
       else if (Command.compare("ADD")==0) {
 
           #ifdef MAP
-          cout<< "Appel a la commande ADD" << endl;
+          //cout<< "Appel a la commande ADD" << "\r\n";
           #endif
 
           // stock into int
@@ -119,12 +116,9 @@ int main(void)
            cin>>Seconde;
            cin>>D7;
            cin>>Value;
-          #ifdef MAP
-          cout<< "I passed" << endl;
-          #endif
 
           #ifdef MAP
-          cout<< "Id : "<<Id<<", Year : "<<Year<<", Month : "<<Month<<", Day : "<<Day<<", Hour : "<<Hour<<", Minute : "<<Minute<<", Seconde : "<<Seconde<<", D7 : "<<D7<<", Value : "<<Value<<endl;
+          //cout<< "Id : "<<Id<<", Year : "<<Year<<", Month : "<<Month<<", Day : "<<Day<<", Hour : "<<Hour<<", Minute : "<<Minute<<", Seconde : "<<Seconde<<", D7 : "<<D7<<", Value : "<<Value<<"\r\n";
           #endif
 
 
@@ -151,7 +145,7 @@ int main(void)
       else if (Command.compare("MAX_TS")==0) {
 
         #ifdef MAP
-        cout<< "Appel a la commande MAX_TS" << endl;
+        //cout<< "Appel a la commande MAX_TS" << "\r\n";
         #endif
 
 
@@ -163,7 +157,7 @@ int main(void)
             }
 
         #ifdef MAP
-        cout<< "attente d'une nouvelle consigne" << endl;
+        //cout<< "attente d'une nouvelle consigne" << "\r\n";
         #endif
         // wait for a new command
         cin>>Command;

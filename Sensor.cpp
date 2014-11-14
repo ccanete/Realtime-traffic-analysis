@@ -49,19 +49,20 @@ void Sensor::StatsIdSensor()
 // Algorithme :
 {
     // calculing percentage in a tab
-    int tab[4];//!!!! a changer car on ne peut renvoyer un tab qui se supprime a la fin de la methode
-    tab[0]=100*(traffic[0]/(  traffic[0]+  traffic[1]+  traffic[2]+  traffic[3]));
-    tab[1]=100*(traffic[1]/(  traffic[0]+  traffic[1]+  traffic[2]+  traffic[3]));
-    tab[2]=100*(traffic[2]/(  traffic[0]+  traffic[1]+  traffic[2]+  traffic[3]));
-    tab[3]=100*(traffic[3]/(  traffic[0]+  traffic[1]+  traffic[2]+  traffic[3]));
+    float tab[4];//!!!! a changer car on ne peut renvoyer un tab qui se supprime a la fin de la methode
+    float somme = traffic[0]+  traffic[1]+  traffic[2]+  traffic[3];
+    tab[0]=100*(traffic[0]/somme);
+    tab[1]=100*(traffic[1]/somme);
+    tab[2]=100*(traffic[2]/somme);
+    tab[3]=100*(traffic[3]/somme);
 
     // to display stats of this sensor
-    cout<<"V "<<tab[0]<<"%"<<endl;
-    cout<<"J "<<tab[1]<<"%"<<endl;
-    cout<<"R "<<tab[2]<<"%"<<endl;
-    cout<<"N "<<tab[3]<<"%"<<endl;
+    cout<<"V "<<(int)tab[0]<<"%"<<"\r\n";
+    cout<<"J "<<(int)tab[1]<<"%"<<"\r\n";
+    cout<<"R "<<(int)tab[2]<<"%"<<"\r\n";
+    cout<<"N "<<(int)tab[3]<<"%"<<"\r\n";
 
-} //----- Fin de M�thode
+} //----- Fin de Methode
 
 Sensor* Sensor::GetNext()
 {
@@ -70,27 +71,24 @@ Sensor* Sensor::GetNext()
 
 }
 
- float* Sensor::SensorUpdate(time_t currentTime, int state)
+ void Sensor::SensorUpdate(time_t currentTime, int state)
  {
-     //the value we need to return
-     float *BeingActived =new float[3];
-     // updating traffic[4]
-    if (difftime(currentTime,lastTime)<300){
-          traffic[lastState]=+difftime(currentTime,lastTime);
-          BeingActived[0]=difftime(currentTime,lastTime);
-        }
-    else {
-          traffic[lastState]=+300;
-          BeingActived[0]=300;
+    if(currentTime<lastTime)
+    {
+		#ifdef MAP
+		cout << "ATTENTION ERREUR" << endl;
+		#endif
+	}
+    if (difftime(currentTime,lastTime)<300)
+    {
+	  traffic[lastState]+=difftime(currentTime,lastTime);
     }
-    //stocking laststate and lasttime
-    BeingActived[1]=lastState;
-    BeingActived[2]=lastTime;
-
+    else {
+          traffic[lastState]+=300;
+    }
     //updating lastTime and lastState
       lastTime=currentTime;
       lastState=state;
-      return BeingActived;
 
  }
 
@@ -103,10 +101,11 @@ Sensor::Sensor ()
 //Alorithme :
 {
     #ifdef MAP
-    cout << "Appel au constructeur de Sensor par default" << endl;
+    //cout << "Appel au constructeur de Sensor par default" << "\r\n";
     #endif
 
     nextSensor=NULL;
+    lastState=-1;
 }
 
 Sensor::Sensor(int Id)
@@ -114,7 +113,7 @@ Sensor::Sensor(int Id)
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <${file_base}>" << endl;
+    //cout << "Appel au constructeur de <${file_base}>" << "\r\n";
 #endif
       idSensor=Id;
       //Sensor * sensorTemp = new Sensor();
@@ -136,7 +135,7 @@ Sensor::~Sensor ( )
 {
 
 #ifdef MAP
-    cout << "Appel au destructeur de <${file_base}>" << endl;
+    //cout << "Appel au destructeur de <${file_base}>" << "\r\n";
 #endif
 } //----- Fin de ~${file_base}
 

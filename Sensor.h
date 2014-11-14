@@ -40,7 +40,7 @@ void StatsIdSensor();
     // Contrat :return the sensors stats in a string
     //
 
-float* SensorUpdate(time_t time,int state);
+void SensorUpdate(time_t time,int state);
     //Mode d'emploi : update tab traffic[4] and lastTime
 Sensor* GetNext();// send next sensor
 int GetId();// send the id of a sensor

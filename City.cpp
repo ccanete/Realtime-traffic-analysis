@@ -16,61 +16,69 @@ using namespace std;
 #include "City.h"
 #include "Sensor.h"
 
-//----------------------------------------------------- MÃ©thodes publiques
+//----------------------------------------------------- Methodes publiques
 
  void City::STATS_D7_H24(int day, int hour){
-     int stats[4];
-     int sum;
-     
-     for (int i=0;i<4;i++)
-     {
-		 sum = sensorsState[day-1][hour][i];
-	 }
-    //day-1 becauseday=[1:7]
-
-     stats[0]=sensorsState[day-1][hour][0];
-     stats[1]=sensorsState[day-1][hour][1];
-     stats[2]=sensorsState[day-1][hour][2];
-     stats[3]=sensorsState[day-1][hour][3];
-     if (sum!=0){
-     stats[0]=stats[0]/sum;
-     stats[1]=stats[1]/sum;
-     stats[2]=stats[2]/sum;
-     stats[3]=stats[3]/sum;
-     }
-     cout<<"V "<<stats[0]<<"%"<<endl;
-     cout<<"J "<<stats[1]<<"%"<<endl;
-     cout<<"R "<<stats[2]<<"%"<<endl;
-     cout<<"N "<<stats[3]<<"%"<<endl;
- }
-
- void City::STATS_D7(int day){
-
-     double stats[4];
+	 
+	 day=modifyDay(day);
+     float stats[4];
      stats[0]=0;
      stats[1]=0;
      stats[2]=0;
      stats[3]=0;
-     double sum;
+     float sum;
+
+     
+	stats[0]+=sensorsState[day][hour][0];
+	stats[1]+=sensorsState[day][hour][1];
+	stats[2]+=sensorsState[day][hour][2];
+	stats[3]+=sensorsState[day][hour][3];
+     
+     sum= stats[0]+stats[1]+ stats[2]+ stats[3];
+     if (sum!=0){
+     stats[0]=(stats[0]/sum)*100;
+     stats[1]=(stats[1]/sum)*100;
+     stats[2]=(stats[2]/sum)*100;
+     stats[3]=(stats[3]/sum)*100;
+     }
+
+     cout<<"V "<<(int)(stats[0])<<"%"<<"\r\n";
+     cout<<"J "<<(int)(stats[1])<<"%"<<"\r\n";
+     cout<<"R "<<(int)(stats[2])<<"%"<<"\r\n";
+     cout<<"N "<<(int)(stats[3])<<"%"<<"\r\n";
+     cout<<"SUM "<<sum<<"\r\n";
+
+     
+ }
+
+ void City::STATS_D7(int day){
+
+	 day=modifyDay(day);
+     float stats[4];
+     stats[0]=0;
+     stats[1]=0;
+     stats[2]=0;
+     stats[3]=0;
+     float sum;
 
      for (int hour=0;hour<24;hour++){
-        stats[0]+=(double)sensorsState[day][hour][0];
-        stats[1]+=(double)sensorsState[day][hour][1];
-        stats[2]+=(double)sensorsState[day][hour][2];
-        stats[3]+=(double)sensorsState[day][hour][3];
+        stats[0]+=sensorsState[day][hour][0];
+        stats[1]+=sensorsState[day][hour][1];
+        stats[2]+=sensorsState[day][hour][2];
+        stats[3]+=sensorsState[day][hour][3];
      }
      sum= stats[0]+stats[1]+ stats[2]+ stats[3];
      if (sum!=0){
-     stats[0]=((double)stats[0]/(double)sum)*100;
-     stats[1]=((double)stats[1]/(double)sum)*100;
-     stats[2]=((double)stats[2]/(double)sum)*100;
-     stats[3]=((double)stats[3]/(double)sum)*100;
+     stats[0]=(stats[0]/sum)*100;
+     stats[1]=(stats[1]/sum)*100;
+     stats[2]=(stats[2]/sum)*100;
+     stats[3]=(stats[3]/sum)*100;
      }
 
-     cout<<"V "<<(int)stats[0]<<"%"<<endl;
-     cout<<"J "<<(int)stats[1]<<"%"<<endl;
-     cout<<"R "<<(int)stats[2]<<"%"<<endl;
-     cout<<"N "<<(int)stats[3]<<"%"<<endl;
+     cout<<"V "<<(int)(stats[0])<<"%"<<"\r\n";
+     cout<<"J "<<(int)(stats[1])<<"%"<<"\r\n";
+     cout<<"R "<<(int)(stats[2])<<"%"<<"\r\n";
+     cout<<"N "<<(int)(stats[3])<<"%"<<"\r\n";
  }
 
 
@@ -78,7 +86,7 @@ using namespace std;
 void City::AddState(time_t time, int id, char Value)
 {
     #ifdef MAP
-    cout<< "Ajout d'un etat" << endl;
+    cout<< "Ajout d'un etat" << "\r\n";
     #endif
 
     Sensor* cur = &(*listSensors);
@@ -93,7 +101,7 @@ void City::AddState(time_t time, int id, char Value)
     if((*cur).GetNext()==NULL and (*cur).GetId()!=id)
     {
         #ifdef MAP
-        cout<< "Ajout d'un capteur" << endl;
+        cout<< "Ajout d'un capteur" << "\r\n";
         #endif
         Sensor * newSensor = new Sensor(id);
         (*cur).nextSensor = newSensor;
@@ -101,34 +109,38 @@ void City::AddState(time_t time, int id, char Value)
         howManySensors++;
 
     }
-
-
-    float *timeActivate=(*cur).SensorUpdate(time, sensorStateToInt(Value));
-    if (timeActivate[1]!=-1)
-    sensorStateUpdate(timeActivate);
-
+    
+    if ((*cur).lastState!=-1)
+    {
+		sensorStateUpdate(*cur, time);
+	}
+	
+	(*cur).SensorUpdate(time, sensorStateToInt(Value));
+	
     updateTraffic(time);
 
-    delete timeActivate;
+    //delete timeActivate;
 }
 
 void City :: Max_TS(){
-    cout << howManySensors << " ont été enregistrés" << endl;
-    cout << "The max trafic was : "<<(int)(100*(maximumValues/howManySensors))<<" %."<<endl;
-    cout << "It was at : "<< ctime(&trafficTime)<<endl;
+    cout << howManySensors << " ont été enregistrés" << "\r\n";
+    cout << "The max trafic was : "<<(int)(100*(maximumValues/howManySensors))<<" %."<<"\r\n";
+    cout << "It was at : "<< ctime(&trafficTime)<<"\r\n";
 }
 
 void City :: Stats_C(int ID){
 
     Sensor* cur = listSensors;
-    while((*cur).GetId()!=ID)
+    while((*cur).GetId()!=ID and ((*cur).GetNext())!=NULL)
     {
         cur=(*cur).nextSensor;
     }
-
-    (*cur).StatsIdSensor();
-
+    if((*cur).GetId()==ID)
+    {
+		(*cur).StatsIdSensor();
+	}
 }
+
 
 //-------------------------------------------- Constructeurs - destructeur
 City::City ( )
@@ -136,7 +148,7 @@ City::City ( )
 //
 {
 #ifdef MAP
-    cout << "Appel au constructeur de <City>" << endl;
+    //cout << "Appel au constructeur de <City>" << "\r\n";
 #endif
 
     //sensors states classified by days and hours
@@ -174,7 +186,7 @@ City::~City ( )
 //
 {
 #ifdef MAP
-    cout << "Appel au destructeur de <City>" << endl;
+    //cout << "Appel au destructeur de <City>" << "\r\n";
 #endif
     Sensor* cur;
     Sensor* nextcur=listSensors;
@@ -238,45 +250,47 @@ void City :: updateTraffic(time_t time)
     realTimeSensorState=0;
 
     Sensor* cur = listSensors;
-    while(((*cur).GetNext())!=NULL) //declencher verif des 5 mins ?
+    while(((*cur).GetNext())!=NULL)
     {
-
-        if(isThereTraffic((*cur).lastState) and difftime((*cur).lastTime,time)<300)
+        if(isThereTraffic((*cur).lastState) and difftime(time,(*cur).lastTime)<300)
         {
             realTimeSensorState++;
         }
         cur=(*cur).nextSensor;
-
     }
 
     if(realTimeSensorState>maximumValues)
     {
-        #ifdef MAP
-        cout<<"trafic max atteind"<<endl;
-        #endif
-
         maximumValues=realTimeSensorState;
         trafficTime=time;
     }
 
 
 }
-void City::sensorStateUpdate( float* timeActivate){
+void City::sensorStateUpdate(Sensor cur, time_t actualTime){
 
     struct tm lastAdd;
-    time_t temps=(time_t)(timeActivate[2]);
-    lastAdd=*localtime(&temps);
+    time_t temps=cur.lastTime; //lastDate reccord
+    lastAdd=*localtime(&temps); //create structure of the last creation date
     int hour=lastAdd.tm_hour;
-    int day=lastAdd.tm_wday;
+    int day=modifyDay(lastAdd.tm_wday);
     int minute=lastAdd.tm_min;
     int seconde=lastAdd.tm_sec;
-    //il faut refabriquer une date depuis timeActivate[3] qui le time du last add
-    //timeActivate[2] valeur du last add
-    //timeActivate[1] temps passee actif du capteur passe
-cout<<day<<" - "<<hour<<" - "<<(int)timeActivate[1]<<endl;
+    float timeActiv = difftime(actualTime, temps);
+    
+    #ifdef MAP
+    cout<< "Date d'ajout : " << ctime(&temps) << endl;
+    cout<< "temps : "<< timeActiv << endl;
+    cout << difftime(actualTime, temps) << endl;    
+    #endif
+
+    
 
 if (minute<55){
-    sensorsState[day][hour][(int)timeActivate[1]]+=timeActivate[0];
+    sensorsState[day][hour][cur.lastState]+=timeActiv;
+    #ifdef MAP
+    cout<< "Temps ajoute : " << timeActiv << endl;
+    #endif
 
 }
 
@@ -285,33 +299,40 @@ else{
 
 
     if(hour!=23){
-        //si un sensor est activee plus de 60 min par heure
-        if(seconde+minute*60+(int)timeActivate[0]>3600){
-            //the case where we need to add in two different cases(hour)
-            sensorsState[day][hour][(int)timeActivate[1]]+=3600-seconde+minute*60;
-            sensorsState[day][hour+1][(int)timeActivate[1]]+=(int)timeActivate[0]-3600-seconde+minute*60;
+		//case between two hours
+        if(seconde+minute*60+timeActiv>3600)
+        {
+            sensorsState[day][hour][cur.lastState]+=3600-seconde-minute*60;
+            sensorsState[day][hour+1][cur.lastState]+=seconde+minute*60+timeActiv-3600;
         }
-        else{
-            sensorsState[day][hour][(int)timeActivate[1]]+=(int)timeActivate[0];
+        //case only over one hour
+        else
+        {
+            sensorsState[day][hour][cur.lastState]+=timeActiv;
         }
 
     }
-
-    else{
-        //si on est a 23 heure et + de 57 minutes
-        if(seconde+minute*60+(int)timeActivate[0]>3600){
-            //the case where we need to add in two different cases(hour) two different day
-            if (day!=6){
-                sensorsState[day][hour][(int)timeActivate[1]]+=3600-seconde+minute*60;
-                sensorsState[day+1][0][(int)timeActivate[1]]+=(int)timeActivate[0]-3600-seconde+minute*60;
+	//bewteen two days
+    else
+    {
+		//case between two hours
+        if(seconde+minute*60+timeActiv>3600)
+        {
+			//not sunday
+            if (day!=6)
+            {
+                sensorsState[day][hour][cur.lastState]+=3600-seconde-minute*60;
+                sensorsState[day+1][0][cur.lastState]+=seconde+minute*60+timeActiv-3600;
             }
+            //case sunday
             else{
-                sensorsState[day][hour][(int)timeActivate[1]]+=3600-seconde+minute*60;
-                sensorsState[0][0][(int)timeActivate[1]]+=(int)timeActivate[0]-3600-seconde+minute*60;
+                sensorsState[day][hour][cur.lastState]+=3600-seconde-minute*60;
+                sensorsState[0][0][cur.lastState]+=seconde+minute*60+timeActiv-3600;
             }
         }
+        //case only over one hour
         else{
-            sensorsState[day][hour][(int)timeActivate[1]]+=(int)timeActivate[0];
+            sensorsState[day][hour][cur.lastState]+=timeActiv;
         }
 
     }
@@ -319,3 +340,14 @@ else{
 
 }
 
+int City :: modifyDay(int Value)
+{
+	switch (Value)
+        {
+        case 7:
+            return 0;
+            break;            
+        default:
+            return Value;
+        }
+}

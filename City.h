@@ -87,7 +87,9 @@ private:
 
     int sensorStateToInt (char Value);
 
-    void sensorStateUpdate(float* timeActivate);
+    void sensorStateUpdate(Sensor cur, time_t actualTime);
+    
+    int modifyDay(int Value);
 
 protected:
 //----------------------------------------------------- Attributs protégés
@@ -96,7 +98,7 @@ private:
 //------------------------------------------------------- Attributs privés
 
     //sensors states classified by days and hours
-    unsigned int sensorsState [7][24][4];
+    float sensorsState [7][24][4];
 
     //Array list of sensors
     Sensor* listSensors;
@@ -110,9 +112,9 @@ private:
     unsigned int trafficDelay;
 
     //RealTime state
-    unsigned int realTimeSensorState;
+    time_t realTimeSensorState;
     //Time of the last state inserted
-    unsigned int timeLastInsert;
+    time_t timeLastInsert;
 
 
 //---------------------------------------------------------- Classes amies
